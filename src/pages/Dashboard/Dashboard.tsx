@@ -17,6 +17,11 @@ import {
   IonCardContent,
   IonIcon,
   IonGrid,
+  IonTab,
+  IonTabBar,
+  IonBadge,
+  IonLabel,
+  IonTabButton,
 } from "@ionic/react";
 
 import "./Dashboard.css";
@@ -41,7 +46,7 @@ const Dashboard: React.FC = (props) => {
     history.push("/login");
   };
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Dashboard</IonTitle>
@@ -52,7 +57,7 @@ const Dashboard: React.FC = (props) => {
       </IonHeader>
       <IonContent fullscreen>
         <IonCardContent>
-            SELAMAT DATANG! {user.name}!<br />
+          SELAMAT DATANG! {user.name}!<br />
         </IonCardContent>
         <div>
           {/* No Kad Pengenalan : {user.no_kp_baru}
@@ -112,7 +117,7 @@ const Dashboard: React.FC = (props) => {
           </IonRow>
         </IonCardContent> */}
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 

@@ -1,6 +1,18 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { getToken } from "./Common";
+import {
+  IonApp,
+  IonBadge,
+  IonContent,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  IonPage,
+} from "@ionic/react";
 
 // handle the private routes
 function PrivateRoute({ component: Component, ...rest }) {
@@ -9,7 +21,24 @@ function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={(props) =>
         getToken() ? (
-          <Component {...props} />
+          <IonPage>
+            <Component {...props} />
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="Dashboard" href="/Dashboard">
+                <img src="./assets/icon/dashboard.svg" alt="dashboard" />
+                <IonLabel>Home</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="Notification" href="/Notification">
+                <img src="./assets/icon/notification.svg" alt="notification" />
+                <IonLabel>Notifikasi</IonLabel>
+                <IonBadge color="success">3</IonBadge>
+              </IonTabButton>
+              <IonTabButton tab="Profile" href="/Profile">
+                <img src="./assets/icon/people.svg" alt="people" />
+                <IonLabel>Profile</IonLabel>
+              </IonTabButton>{" "}
+            </IonTabBar>
+          </IonPage>
         ) : (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}

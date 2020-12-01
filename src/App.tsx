@@ -79,41 +79,19 @@ const App: React.FC = (props) => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Switch>
-              <PrivateRoute path="/dashboard" component={Dashboard} />
-              <PrivateRoute
-                path="/Notification"
-                component={Notification}
-                exact={true}
-              />
-              <PrivateRoute path="/Profile" component={Profile} exact={true} />
-              <Route path="/login" component={Login} />
-              <Route path="/Home" component={Home} exact={true} />
-              <Route path="/Register" component={Register} exact={true} />
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
-            </Switch>
-          </IonRouterOutlet>
-
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="Dashboard" href="/Dashboard">
-              <img src="./assets/icon/dashboard.svg" alt="dashboard" />
-              <IonLabel>Home</IonLabel>
-            </IonTabButton>
-
-            <IonTabButton tab="Notification" href="/Notification">
-              <img src="./assets/icon/notification.svg" alt="notification" />
-              <IonLabel>Notifikasi</IonLabel>
-              <IonBadge color="success">3</IonBadge>
-            </IonTabButton>
-
-            <IonTabButton tab="Profile" href="/Profile">
-              <img src="./assets/icon/people.svg" alt="people" />
-              <IonLabel>Profile</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
+        <IonRouterOutlet>
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute
+            path="/Notification"
+            component={Notification}
+            exact={true}
+          />
+          <PrivateRoute path="/Profile" component={Profile} exact={true} />
+          <Route path="/login" component={Login} />
+          <Route path="/Home" component={Home} exact={true} />
+          <Route path="/Register" component={Register} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+        </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
   );

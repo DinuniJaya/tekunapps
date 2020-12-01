@@ -14,6 +14,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
+import { useHistory } from "react-router-dom";
 
 function LoginForm(props) {
   const [loading, setLoading] = useState(false);
@@ -21,31 +22,36 @@ function LoginForm(props) {
   const password = useFormInput("");
   const [error, setError] = useState(null);
 
+  let history = useHistory();
+
+  console.log("props", history);
+
   // handle button click of login form
   const handleLogin = () => {
     setError(null);
     setLoading(true);
     axios
-      .post("https://tekun2.nakmenangtender.com/api/login", {
-        no_kp_baru: no_kp_baru.value,
+      .post("https://tekun2.nakmenangtender.com/api/v2/login", {
+        username: no_kp_baru.value,
         password: password.value,
       })
       .then((response) => {
         setLoading(false);
-        setUserSession(response.data.token, response.data.user_info);
-        props.history.push("/dashboard");
+        setUserSession(response.data.user_info.token, response.data.user_info);
+        history.push("/dashboard");
       })
       .catch((error) => {
+        console.log("error", error);
         setLoading(false);
-        if (error.response.status === 401)
+        if (error?.response?.status === 401)
           setError(error.response.data.message);
         else setError("Something went wrong. Please try again later.");
       });
   };
 
   const handleChange = () => {
-    alert('handlechange !')
-  }
+    alert("handlechange !");
+  };
 
   return (
     <div className="container">
