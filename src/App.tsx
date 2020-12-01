@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
@@ -12,7 +12,6 @@ import {
   IonIcon,
   IonLabel,
   IonRouterOutlet,
-  IonTab,
   IonTabBar,
   IonTabButton,
   IonTabs,
@@ -47,54 +46,46 @@ import Notification from "./pages/Notification/Notification";
 import "./Apps.css";
 
 const App: React.FC = (props) => {
-  console.log(window.location.href);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      return;
+    }
+
+    axios
+      .get(`https://tekun2.nakmenangtender.com/api/v2/user`)
+      .then((response) => {
+        setUserSession(response.data.user_info.token, response.data.user_info);
+        setAuthLoading(false);
+      })
+      .catch((error) => {
+        removeUserSession();
+        setAuthLoading(false);
+      });
+  }, []);
+
+  if (authLoading && getToken()) {
+    return <div className="content">Checking Authentication...</div>;
+  }
 
   return (
     <IonApp>
       <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Switch>
-              <PrivateRoute path="/dashboard" component={Dashboard} />
-              <PrivateRoute
-                path="/Notification"
-                component={Notification}
-                exact={true}
-              />
-              <PrivateRoute path="/Profile" component={Profile} exact={true} />
-              <Route path="/login" component={Login} />
-              <Route path="/Home" component={Home} exact={true} />
-              <Route path="/Register" component={Register} exact={true} />
-              {/* <Route path="/" component={isLoggedIn ? MainTabs : Login} /> */}
-              <Route
-                exact
-                path="/"
-                render={() => (
-                  <Redirect to="/home" />
-                  // <Maintab />
-                )}
-              />
-            </Switch>
-          </IonRouterOutlet>
-
-          <IonTabBar slot="bottom" className="nologin">
-            <IonTabButton tab="Dashboard" href="/Dashboard">
-              <img src="./assets/icon/dashboard.svg" alt="dashboard" />
-              <IonLabel>Home</IonLabel>
-            </IonTabButton>
-
-            <IonTabButton tab="Notification" href="/Notification">
-              <img src="./assets/icon/notification.svg" alt="notification" />
-              <IonLabel>Notifikasi</IonLabel>
-              <IonBadge color="success">3</IonBadge>
-            </IonTabButton>
-
-            <IonTabButton tab="Profile" href="/Profile">
-              <img src="./assets/icon/people.svg" alt="people" />
-              <IonLabel>Profile</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
+        <IonRouterOutlet>
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute
+            path="/Notification"
+            component={Notification}
+            exact={true}
+          />
+          <PrivateRoute path="/Profile" component={Profile} exact={true} />
+          <Route path="/login" component={Login} />
+          <Route path="/Home" component={Home} exact={true} />
+          <Route path="/Register" component={Register} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+        </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
   );

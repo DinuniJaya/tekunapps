@@ -10,14 +10,14 @@ import {
 
 const Notification: React.FC = () => {
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Notifikasi</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent></IonContent>
-    </IonPage>
+    </>
   );
 };
 

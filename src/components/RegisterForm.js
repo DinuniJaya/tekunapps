@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-// import { PostData } from "../services/PostData";
-import axios from "axios";
-import { setUserSession } from "../Utils/Common";
+import { PostData } from "../services/PostData";
 
 import { motion } from "framer-motion";
 import Button from "@material-ui/core/Button";
@@ -16,10 +14,10 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      icno: "",
+      username: "",
       password: "",
       email: "",
-      notel: "",
+      name: "",
       redirectToReferrer: false,
     };
     this.signup = this.signup.bind(this);
@@ -28,31 +26,39 @@ class RegisterForm extends Component {
 
   signup() {
     if (
-      this.state.icno &&
+      this.state.username &&
       this.state.password &&
       this.state.email &&
-      this.state.notel
+      this.state.name
     ) {
-      axios
-        .post("https://tekun2.nakmenangtender.com/api/v2/register", this.state)
-        .then((result) => {
-          let responseJson = result;
-          if (responseJson.user_info) {
-            sessionStorage.setItem("user_info", JSON.stringify(responseJson));
-            this.setState({ redirectToReferrer: true });
-          } else alert(result.error);
-        });
+      PostData("/api/registerakaun", this.state).then((result) => {
+        let responseJson = result;
+        if (responseJson.userData) {
+          sessionStorage.setItem("userData", JSON.stringify(responseJson));
+          this.setState({ redirectToReferrer: true });
+        } else alert(result.error);
+      });
     }
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
   render() {
-    if (this.state.redirectToReferrer || sessionStorage.getItem("user_info")) {
+    if (this.state.redirectToReferrer || sessionStorage.getItem("userData")) {
       return <Redirect to={"/Dashboard"} />;
     }
     return (
       <div className="container">
+        <div className="ontopboard">
+          <motion.img
+            src="./assets/img/logotekun.svg"
+            alt="logo"
+            animate={{ scale: [0, 1], opacity: [0.2, 2] }}
+            transition={{ duration: 0.9 }}
+          />
+          <hr />
+          <img src="./assets/img/people.svg" alt="people" />
+        </div>
         <Grid className="grid">
           <Grid>
             <div className="">
@@ -63,10 +69,10 @@ class RegisterForm extends Component {
                   required
                   fullWidth
                   label="No Kad Pengenalan"
-                  name="icno"
+                  name="username"
                   autoComplete="No Kad Pengenalan"
                   type="text"
-                  // name="username"
+                  name="username"
                   placeholder="Username"
                   onChange={this.onChange}
                 />
@@ -99,7 +105,7 @@ class RegisterForm extends Component {
                   margin="normal"
                   required
                   fullWidth
-                  name="notel"
+                  name="no telefon"
                   label="No Telefon"
                   type="text"
                   placeholder="6xxxxxxxxxxx"

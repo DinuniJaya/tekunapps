@@ -1,8 +1,8 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+
 import { setUserSession } from "../Utils/Common";
-// import { PostData } from "../services/PostData";
+import { PostData } from "../services/PostData";
 
 import { Redirect } from "react-router-dom";
 
@@ -14,41 +14,37 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
+import { useHistory } from "react-router-dom";
 
 function LoginForm(props) {
-  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const no_kp_baru = useFormInput("");
   const password = useFormInput("");
   const [error, setError] = useState(null);
 
-  // const user = useContext(UserContext);
+  let history = useHistory();
 
-  // const loginClick = () => {
-  //   if (userName === "a" && password === "a") {
-  //     user.setIsLoggedIn(true);
-  //   }
-  // };
+  console.log("props", history);
 
   // handle button click of login form
-  const handleLogin = (props) => {
+  const handleLogin = () => {
     setError(null);
-    setLoading(false);
+    setLoading(true);
     axios
-      .post("https://tekun2.nakmenangtender.com/api/login", {
-        no_kp_baru: no_kp_baru.value,
+      .post("https://tekun2.nakmenangtender.com/api/v2/login", {
+        username: no_kp_baru.value,
         password: password.value,
       })
       .then((response) => {
-        console.log(response);
-        setLoading(true);
-        setUserSession(response.token, response.data.user_info);
-        history.push("/Dashboard");
+        setLoading(false);
+        setUserSession(response.data.user_info.token, response.data.user_info);
+        history.push("/dashboard");
       })
       .catch((error) => {
-        alert("good try");
+        console.log("error", error);
         setLoading(false);
-        if (error.response) setError(error.response);
+        if (error?.response?.status === 401)
+          setError(error.response.data.message);
         else setError("Something went wrong. Please try again later.");
       });
   };

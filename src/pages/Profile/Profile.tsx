@@ -83,7 +83,7 @@ const Profile: React.FC = (props) => {
   };
 
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Profile</IonTitle>
@@ -94,14 +94,14 @@ const Profile: React.FC = (props) => {
       </IonHeader>
       <IonContent>
         <IonCardContent>
-        No Kad Pengenalan : {user.no_kp_baru}
-        <br />
-        Email : {user.email}
-        <br />
-        No Tel : {user.no_tel}
-        {/* <input type="button" onClick={handleLogout} value="Logout" /> */}
+          No Kad Pengenalan : {user.no_kp_baru}
+          <br />
+          Email : {user.email}
+          <br />
+          No Tel : {user.no_tel}
+          {/* <input type="button" onClick={handleLogout} value="Logout" /> */}
         </IonCardContent>
-        
+
         <Collapsible trigger="Maklumat Asas">
           <Grid className="grid">
             <form className="form" noValidate>
@@ -218,14 +218,16 @@ const Profile: React.FC = (props) => {
             section!
           </p>
         </Collapsible>
-        <IonButton expand="full" type="button" onClick={handleLogout}>Log Keluar</IonButton>
+        <IonButton expand="full" type="button" onClick={handleLogout}>
+          Log Keluar
+        </IonButton>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton>
             <img src="./assets/icon/edit.svg" alt="edit" />
           </IonFabButton>
         </IonFab>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 
