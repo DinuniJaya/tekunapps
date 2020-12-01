@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
@@ -12,6 +12,7 @@ import {
   IonIcon,
   IonLabel,
   IonRouterOutlet,
+  IonTab,
   IonTabBar,
   IonTabButton,
   IonTabs,
@@ -43,38 +44,10 @@ import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
 import Notification from "./pages/Notification/Notification";
 
-import {
-  homeOutline,
-  notificationsOutline,
-  personOutline,
-} from "ionicons/icons";
-
 import "./Apps.css";
 
 const App: React.FC = (props) => {
-  const [authLoading, setAuthLoading] = useState(true);
-
-  useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      return;
-    }
-
-    axios
-      .get(`https://tekun2.nakmenangtender.com/api=${token}`)
-      .then((response) => {
-        setUserSession(response.data.token, response.data.user_info);
-        setAuthLoading(false);
-      })
-      .catch((error) => {
-        removeUserSession();
-        setAuthLoading(false);
-      });
-  }, []);
-
-  if (authLoading && getToken()) {
-    return <div className="content">Checking Authentication...</div>;
-  }
+  console.log(window.location.href);
 
   return (
     <IonApp>
@@ -92,11 +65,19 @@ const App: React.FC = (props) => {
               <Route path="/login" component={Login} />
               <Route path="/Home" component={Home} exact={true} />
               <Route path="/Register" component={Register} exact={true} />
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
+              {/* <Route path="/" component={isLoggedIn ? MainTabs : Login} /> */}
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Redirect to="/home" />
+                  // <Maintab />
+                )}
+              />
             </Switch>
           </IonRouterOutlet>
 
-          <IonTabBar slot="bottom">
+          <IonTabBar slot="bottom" className="nologin">
             <IonTabButton tab="Dashboard" href="/Dashboard">
               <img src="./assets/icon/dashboard.svg" alt="dashboard" />
               <IonLabel>Home</IonLabel>

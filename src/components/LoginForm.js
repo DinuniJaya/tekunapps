@@ -1,8 +1,8 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
-
+import { useHistory } from "react-router-dom";
 import { setUserSession } from "../Utils/Common";
-import { PostData } from "../services/PostData";
+// import { PostData } from "../services/PostData";
 
 import { Redirect } from "react-router-dom";
 
@@ -16,36 +16,46 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 
 function LoginForm(props) {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const no_kp_baru = useFormInput("");
   const password = useFormInput("");
   const [error, setError] = useState(null);
 
+  // const user = useContext(UserContext);
+
+  // const loginClick = () => {
+  //   if (userName === "a" && password === "a") {
+  //     user.setIsLoggedIn(true);
+  //   }
+  // };
+
   // handle button click of login form
-  const handleLogin = () => {
+  const handleLogin = (props) => {
     setError(null);
-    setLoading(true);
+    setLoading(false);
     axios
       .post("https://tekun2.nakmenangtender.com/api/login", {
         no_kp_baru: no_kp_baru.value,
         password: password.value,
       })
       .then((response) => {
-        setLoading(false);
-        setUserSession(response.data.token, response.data.user_info);
-        props.history.push("/dashboard");
+        console.log(response);
+        setLoading(true);
+        setUserSession(response.token, response.data.user_info);
+        history.push("/Dashboard");
       })
       .catch((error) => {
+        alert("good try");
         setLoading(false);
-        if (error.response.status === 401)
-          setError(error.response.data.message);
+        if (error.response) setError(error.response);
         else setError("Something went wrong. Please try again later.");
       });
   };
 
   const handleChange = () => {
-    alert('handlechange !')
-  }
+    alert("handlechange !");
+  };
 
   return (
     <div className="container">
