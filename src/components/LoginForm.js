@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
 
-import { setUserSession } from "../Utils/Common";
+import { setUserSession, getToken } from "../Utils/Common";
 import { PostData } from "../services/PostData";
 
 import { Redirect } from "react-router-dom";
@@ -38,6 +38,7 @@ function LoginForm(props) {
       .then((response) => {
         setLoading(false);
         setUserSession(response.data.user_info.token, response.data.user_info);
+        console.log("setUserSession", window.sessionStorage.getItem("token"));
         history.push("/dashboard");
       })
       .catch((error) => {
@@ -63,7 +64,6 @@ function LoginForm(props) {
           transition={{ duration: 0.9 }}
         />
         <hr />
-        {/* <img src="./assets/img/people.svg" alt="people" /> */}
       </div>
       <Grid className="grid">
         <Grid>
@@ -79,12 +79,7 @@ function LoginForm(props) {
                 name="no_kp_baru"
                 type="text"
                 autoComplete="No Kad Pengenalan"
-                // value={handleChange}
                 {...no_kp_baru}
-
-                //   name="no_kad_pengenalan"
-                //   autoFocus
-                // onChange={this.onChange}
               />
               <TextField
                 variant="outlined"
@@ -98,27 +93,12 @@ function LoginForm(props) {
                 name="password"
                 {...password}
                 autoComplete="current-password"
-
-                // onChange={this.onChange}
-                // value=""
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Ingat kata laluan"
               />
-
-              {/* {error && (
-                <>
-                  <small style={{ color: "red" }}>{error}</small>
-                  <br />
-                </>
-              )} */}
               <Button
-                // href="/Dashboard"
-                // type="submit"
-                // onClick={this.login}
-
-                // value="Login"
                 fullWidth
                 variant="contained"
                 color="primary"

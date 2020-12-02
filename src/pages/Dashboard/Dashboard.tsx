@@ -83,15 +83,15 @@ const Dashboard: React.FC = (props) => {
         <IonCardContent>
           <IonRow>
             <IonCol className="iconMenu">
-              <IonImg src="/assets/icon/doc.svg" alt="Document" />
+              <IonImg src="/assets/icon/status.svg" alt="Document" />
               <IonText>Status Pemohon</IonText>
             </IonCol>
             <IonCol className="iconMenu">
-              <IonImg src="/assets/icon/callcenter.svg" alt="Document" />
+              <IonImg src="/assets/icon/form.svg" alt="Document" />
               <IonText>Bantuan</IonText>
             </IonCol>
             <IonCol className="iconMenu">
-              <IonImg src="/assets/icon/map.svg" alt="Document" />
+              <IonImg src="/assets/icon/stayhome.svg" alt="Document" />
               <IonText>Cawangan</IonText>
             </IonCol>
           </IonRow>

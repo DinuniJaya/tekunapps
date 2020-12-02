@@ -1,3 +1,10 @@
 ion-content {
   --background: #fdfdfd;
 }
+.ion-padding {
+  padding-top: 0;
+}
+ion-header,
+ion-toolbar {
+  background-color: royalblue !important;
+}

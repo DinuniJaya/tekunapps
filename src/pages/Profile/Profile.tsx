@@ -4,34 +4,22 @@ import { getUser, removeUserSession } from "../../Utils/Common";
 import {
   IonContent,
   IonHeader,
-  IonPage,
   IonTitle,
   IonToolbar,
   IonAvatar,
-  IonIcon,
   IonCardContent,
-  IonRow,
-  IonCol,
-  IonImg,
-  IonText,
   IonButton,
   IonFab,
   IonFabButton,
 } from "@ionic/react";
 
-import { motion } from "framer-motion";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import "./Profile.css";
 import Collapsible from "react-collapsible";
-import { create } from "ionicons/icons";
-import { red } from "@material-ui/core/colors";
+import MaklumatPribadi from "./MaklumatPribadi";
 
 const namaNegeri = [
   { value: "Pulau Pinang", label: "Pulau Pinang" },
@@ -66,14 +54,14 @@ const Profile: React.FC = (props) => {
     history.push("/login");
   };
 
-  const [negeri, setNegeri] = useState("Kuala Lumpur");
-  const [perniagaan, setPerniagaan] = useState("Sedang Berniaga");
-  const [namabank, setNamabank] = useState("CIMB BANK BERHAD");
-  const [cawangan, setCawangan] = useState("Nibong Tebal");
-  const [pemasaran, setPemasaran] = useState("Online");
-  const [akaunbank, setAkaunbank] = useState("12345");
+  const [negeri, setNegeri] = useState("");
+  const [perniagaan, setPerniagaan] = useState("");
+  const [namabank, setNamabank] = useState("");
+  const [cawangan, setCawangan] = useState("");
+  const [pemasaran, setPemasaran] = useState("");
+  const [akaunbank, setAkaunbank] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    alert("handleChange");
+    // alert("handleChange");
     setNegeri(event.target.value);
     setPerniagaan(event.target.value);
     setNamabank(event.target.value);
@@ -199,14 +187,7 @@ const Profile: React.FC = (props) => {
           </Grid>
         </Collapsible>
         <Collapsible trigger="Maklumat Peribadi Pemohon">
-          <p>
-            This is the collapsible content. It can be any element or React
-            component you like.
-          </p>
-          <p>
-            It can even be another Collapsible component. Check out the next
-            section!
-          </p>
+          <MaklumatPribadi />
         </Collapsible>
         <Collapsible trigger="Maklumat Perniagaan">
           <p>
