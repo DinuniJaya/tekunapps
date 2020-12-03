@@ -2,15 +2,10 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { getToken } from "./Common";
 import {
-  IonApp,
   IonBadge,
-  IonContent,
-  IonIcon,
   IonLabel,
-  IonRouterOutlet,
   IonTabBar,
   IonTabButton,
-  IonTabs,
   IonPage,
 } from "@ionic/react";
 

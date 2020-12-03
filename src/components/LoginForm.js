@@ -2,9 +2,6 @@ import React, { Component, useState } from "react";
 import axios from "axios";
 
 import { setUserSession, getToken } from "../Utils/Common";
-import { PostData } from "../services/PostData";
-
-import { Redirect } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
@@ -22,9 +19,9 @@ function LoginForm(props) {
   const password = useFormInput("");
   const [error, setError] = useState(null);
 
-  let history = useHistory();
+  const history = useHistory();
 
-  console.log("props", history);
+  // console.log("props", history);
 
   // handle button click of login form
   const handleLogin = () => {
@@ -39,20 +36,20 @@ function LoginForm(props) {
         setLoading(false);
         setUserSession(response.data.user_info.token, response.data.user_info);
         console.log("setUserSession", window.sessionStorage.getItem("token"));
-        history.push("/dashboard");
-      })
-      .catch((error) => {
-        console.log("error", error);
-        setLoading(false);
-        if (error?.response?.status === 401)
-          setError(error.response.data.message);
-        else setError("Something went wrong. Please try again later.");
+        history.push("/Dashboard");
       });
+    // .catch((error) => {
+    //   console.log("error", error);
+    //   setLoading(false);
+    //   if (error?.response?.status === 401)
+    //     setError(error.response.data.message);
+    //   else setError("Something went wrong. Please try again later.");
+    // });
   };
 
-  const handleChange = () => {
-    alert("handlechange !");
-  };
+  // const handleChange = () => {
+  //   alert("handlechange !");
+  // };
 
   return (
     <div className="container">

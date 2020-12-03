@@ -8,3 +8,9 @@ ion-header,
 ion-toolbar {
   background-color: royalblue !important;
 }
+.green {
+  --background: rgb(23, 190, 23);
+}
+.blue {
+  --background: #2e3192;
+}

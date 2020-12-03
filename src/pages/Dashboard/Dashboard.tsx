@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import { getUser, removeUserSession } from "../../Utils/Common";
 import {
   IonContent,
-  IonPage,
   IonSlides,
   IonSlide,
   IonHeader,
@@ -15,13 +14,6 @@ import {
   IonImg,
   IonText,
   IonCardContent,
-  IonIcon,
-  IonGrid,
-  IonTab,
-  IonTabBar,
-  IonBadge,
-  IonLabel,
-  IonTabButton,
 } from "@ionic/react";
 
 import "./Dashboard.css";
@@ -40,11 +32,6 @@ const Dashboard: React.FC = (props) => {
   const user = getUser();
   const history = useHistory();
 
-  // handle click event of logout button
-  const handleLogout = () => {
-    removeUserSession();
-    history.push("/login");
-  };
   return (
     <>
       <IonHeader>
@@ -59,14 +46,6 @@ const Dashboard: React.FC = (props) => {
         <IonCardContent>
           SELAMAT DATANG! {user.name}!<br />
         </IonCardContent>
-        <div>
-          {/* No Kad Pengenalan : {user.no_kp_baru}
-          <br />
-          Email : {user.email}
-          <br />
-          No Tel : {user.no_tel}
-          <input type="button" onClick={handleLogout} value="Logout" /> */}
-        </div>
         {/* Slide */}
         <IonSlides pager={true} options={slideOpts} className="swiper">
           <IonSlide className="ion-padding">
