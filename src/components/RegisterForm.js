@@ -61,7 +61,7 @@ class RegisterForm extends Component {
         </div>
         <Grid className="grid">
           <Grid>
-            <div className="">
+            <div className="LoginContainer">
               <form className="form" noValidate>
                 <TextField
                   variant="outlined"
@@ -131,7 +131,6 @@ class RegisterForm extends Component {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className="submit"
                   type="submit"
                   className="button"
                   value="Sign Up"
@@ -142,9 +141,9 @@ class RegisterForm extends Component {
               </form>
             </div>
             <Grid item>
-              <Link href="/Login" variant="body2">
+              <Button href="/Login" className="button">
                 {"Login"}
-              </Link>
+              </Button>
             </Grid>
           </Grid>
         </Grid>

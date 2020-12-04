@@ -1,6 +1,13 @@
 .grid {
   margin: 0;
 }
+.LoginContainer {
+  border-radius: 9px;
+  padding: 20px;
+  border-color: black;
+  background-color: white;
+  margin: 10px;
+}
 .Collapsible {
   background-color: white;
 }

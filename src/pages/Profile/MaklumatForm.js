@@ -35,7 +35,8 @@ function MaklumatForm() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.post(
-        `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
+        // `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
+        `/profileform.json`,
         {},
         {
           headers: {
@@ -45,6 +46,11 @@ function MaklumatForm() {
           },
         }
       );
+      // axios.post(`url1`, fetchData)
+      // .then((response) => response.json())
+      // .then((response) => this.setState({ fetchData: response }))
+      // .catch((error) => console.log("error", error));
+
       setMkasas(Object.values(result.data.Master_status_perniagaan));
       setMkaBank(Object.values(result.data.Master_bank));
       setMkaCawangan(Object.values(result.data.Master_cawangan));

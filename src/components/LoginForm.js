@@ -12,6 +12,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { useHistory } from "react-router-dom";
+import { IonButton } from "@ionic/react";
 
 function LoginForm(props) {
   const [loading, setLoading] = useState(false);
@@ -24,12 +25,25 @@ function LoginForm(props) {
   // console.log("props", history);
 
   // handle button click of login form
+  function ionAlert() {
+    const alert = document.createElement("ion-alert");
+    alert.header = "Server Bussy";
+    // alert.subHeader = "Server Error 500";
+    alert.message =
+      "Server are too busy at the moment.. please try again later";
+    alert.buttons = ["OK"];
+
+    document.body.appendChild(alert);
+    return alert.present();
+  }
   const handleLogin = () => {
-    setError(null);
+    ionAlert(null);
     setLoading(true);
+
     axios
-      .post("https://tekun2.nakmenangtender.com/api/v2/login", {
-        username: no_kp_baru.value,
+      // .post("https://tekun2.nakmenangtender.com/api/v2/login", {
+      .post("https://tekun2.nakmenangtender.com/api/login", {
+        no_kp_baru: no_kp_baru.value,
         password: password.value,
       })
       .then((response) => {
@@ -42,7 +56,7 @@ function LoginForm(props) {
         console.log("error", error);
         setLoading(false);
         if (error?.response?.status === 401)
-          setError(error.response.data.message);
+          ionAlert(error.response.data.message);
         else setError("Something went wrong. Please try again later.");
       });
   };
@@ -64,7 +78,7 @@ function LoginForm(props) {
       </div>
       <Grid className="grid">
         <Grid>
-          <div className="">
+          <div className="LoginContainer">
             <form className="form" noValidate>
               <TextField
                 variant="outlined"
@@ -121,8 +135,20 @@ function LoginForm(props) {
               </Grid>
             </form>
           </div>
+          <IonButton
+            className="green"
+            onClick={() => history.push("./Register")}
+          >
+            Daftar
+          </IonButton>
         </Grid>
       </Grid>
+
+      <div className="ion-padding">
+        <div className="onboardbg">
+          <img src="./assets/img/onboardbg.svg" alt="" />
+        </div>
+      </div>
     </div>
   );
 }

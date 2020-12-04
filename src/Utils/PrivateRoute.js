@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { getToken } from "./Common";
+import { getToken, setUserSession } from "./Common";
 import {
   IonBadge,
   IonLabel,
@@ -31,12 +31,13 @@ function PrivateRoute({ component: Component, ...rest }) {
               <IonTabButton tab="Profile" href="/Profile">
                 <img src="./assets/icon/people.svg" alt="people" />
                 <IonLabel>Profile</IonLabel>
-              </IonTabButton>{" "}
+              </IonTabButton>
             </IonTabBar>
           </IonPage>
         ) : (
           <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
+            // to="/Login"
+            to={{ pathname: "./Login", state: { from: props.location } }}
           />
         )
       }
