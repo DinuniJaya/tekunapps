@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { getUser, removeUserSession } from "../../Utils/Common";
+import { getUser } from "../../Utils/Common";
 import {
   IonContent,
   IonSlides,
@@ -34,6 +34,7 @@ const Dashboard: React.FC = (props) => {
 
   return (
     <>
+      {/* {console.log("user_info", user)} */}
       <IonHeader>
         <IonToolbar>
           <IonTitle>Dashboard</IonTitle>
@@ -44,7 +45,7 @@ const Dashboard: React.FC = (props) => {
       </IonHeader>
       <IonContent fullscreen>
         <IonCardContent>
-          SELAMAT DATANG! {user.name}!<br />
+          Hi <b className="blue">{user.name},</b> Selamat Datang !
         </IonCardContent>
         {/* Slide */}
         <IonSlides pager={true} options={slideOpts} className="swiper">

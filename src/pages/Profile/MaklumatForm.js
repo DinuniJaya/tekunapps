@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getUser } from "../../Utils/Common";
 import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import "./Profile.css";
 import Collapsible from "react-collapsible";
-import { IonButton } from "@ionic/react";
+import { IonButton, IonButtons, IonRow, IonSegmentButton } from "@ionic/react";
 function MaklumatForm() {
-  const [choices, setChoices] = useState([]);
-  const [choicesBank, setShoicesBank] = useState([]);
-  const [choicesCawangan, setShoicesCawangan] = useState([]);
+  const user = getUser();
+  // <Start> Choices Maklumat Asas
+  const [mkasas, setMkasas] = useState([]);
+  const [mkaBank, setMkaBank] = useState([]);
+  const [mkaCawangan, setMkaCawangan] = useState([]);
   const [choicesKpemasaran, setShoicesKpemasaran] = useState([]);
-  // const [choicesSperniagaan, setShoicesSperniagaan] = useState([]);
-  // selected state
-  const [selectedChoice, setSelectedChoice] = useState("");
-  const [selectedChoiceBank, setSelectedChoiceBank] = useState("");
-  const [selectedChoiceCawangan, setSelectedChoiceCawangan] = useState("");
+  // const [mkaAktiviti, setMkaAktiviti] = useState([]);
+  // const [mkaSktorNiaga, setMkaSektorNiaga] = useState([]);
+
+  // selected Maklumat Asas
+  const [selectMkasas, setSelectMkasas] = useState("");
+  const [selectedMkaBank, setSelectedMkaBank] = useState("");
+  const [selectedMkaCawangan, setSelectedCawangan] = useState("");
   const [selectedChoiceKpemasaran, setSelectedChoiceKpemasaran] = useState("");
+  // const [selectedMkaSektorNiaga, setSelectedMkaSektorNiaga] = useState("");
+  // const [selectedMkaAktiviti, setSelectedMkaAktiviti] = useState("");
 
-  // const [selectedChoiceSperniagaan, setSelectedChoiceSperniagaan] = useState(
-  //   ""
-  // );
+  // <End>
 
+  // <Start>Choices Maklumat Peribadi Pemohon
+  // const [userMpp, setUserMpp] = useState([]);
+
+  // selected Maklumat Peribadi Pemohon
+  // const [selectedUserMpp, setSelectedUserMpp] = useState("");
+  // <End>
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.post(
@@ -29,28 +40,28 @@ function MaklumatForm() {
         {
           headers: {
             Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg5ZTUwNmU1ODczZGMyMmYzZDBjMjE2ODZkMjdkMzI0OGRhOTAxMDU2N2Y4YWQ0ODk5NmMwM2FhOTdhNTM4ZjA3MDdjYzZmYzZmYjU4ODZmIn0.eyJhdWQiOiIzIiwianRpIjoiODllNTA2ZTU4NzNkYzIyZjNkMGMyMTY4NmQyN2QzMjQ4ZGE5MDEwNTY3ZjhhZDQ4OTk2YzAzYWE5N2E1MzhmMDcwN2NjNmZjNmZiNTg4NmYiLCJpYXQiOjE2MDY3MDM0MzksIm5iZiI6MTYwNjcwMzQzOSwiZXhwIjoxNjM4MjM5NDM5LCJzdWIiOiIxMTkwIiwic2NvcGVzIjpbXX0.HdYLVX_2lGOvf7ZgjQNb8_O_K0TIljh8fpfQbskoMOkfOb-HCLukCF-WjcCTWpxbWV975X9AccBHmwF0CBUQZEiY55qWogLJM9EZoziXnFrjQ8nHkqbFCsHRhEodbAKhnMG97-LfYD3epyoFUiq54pR17x1nfIjENH69v2vBZizgBewG5dVKO6VIxhMRdCCpcRsyb1-95s7dAlFqoHPLAvuP90htBnNqUBwDtup0W7NeZsGzMERs5AeP86jHOf8laBl5Y31n8WYjNrZAAkNcgAZxM3Q1SJ77VrsyzANNX1V4rm1y4z9ekSLYts7q7xr8dDqP-Byh8yv1eLOM81tBr-4rHHAXHMyfhXrxvg_MQn9RcMHGkAvYpUK2aEtik526PklHC5SMphji8EAS6rgFmRuj8xIze40BV_Nxd-9USPlGKQMn7OdlNTQm_s1b7WOpiPgajHRgEz60vUmd0OOk6IhbSTDpgmDB0z1fGukoYIfFd5cJ3fAPHrG7IW0_EvMlT4CQJGJrp8VQLs-kUNAM6mvdbthTNB8XeiTS28CEgREVg7fDIkHOgUvLqChlKrc0XUjcN9G4em5YE1dAf-TJK9N7mSp1hpSK6-XhqmNe_Z2aJYvzLXFo0rD-JCS3bWyNFGMnM1cFgZMfjJkV0HqgN23FeyuMI-c5YuhavNJr2Qk",
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5NjIzYTZmMzgyMWI3ZjhmNmM4MjYxYWE0NDJiYzAwMDJlYzhhYWQ1MjQ2Yzk0ZDViMTEyMmRkZTdiOTFlNTJjN2FkZmUwOWRiNDg1NmFhIn0.eyJhdWQiOiIzIiwianRpIjoiNzk2MjNhNmYzODIxYjdmOGY2YzgyNjFhYTQ0MmJjMDAwMmVjOGFhZDUyNDZjOTRkNWIxMTIyZGRlN2I5MWU1MmM3YWRmZTA5ZGI0ODU2YWEiLCJpYXQiOjE2MDY0OTc0NzksIm5iZiI6MTYwNjQ5NzQ3OSwiZXhwIjoxNjM4MDMzNDc4LCJzdWIiOiIxMTkwIiwic2NvcGVzIjpbXX0.xXgcWy5bnchckWtBTb_ck0Ri-c3ZpMQUChq-qUXSZ1jEjNE1a5PyJ3asxhQBrbrcVRt8LpFN1TD5B6YDjn4pRkqDQ_ElahIWny5URHbcPFNPG1W1ZDgMuvuM9Qo5HzadK1XYpnMoguNASU8zck1Jj4qcvv4RBKpeV_Y00z7bzalv6wICuDerSKytTcxcIKDQkdCPhvQD7NaeRVjAX-Zvm4xIG1D0CpFO7XTXnO-12WNQLwk358i8zehOXf-hMKIKme1-tE71IYDFSzRH2VxS3K3D8U1EDXZplnR02fURYwjope9vkGKYg9NhZwOCu73gho0k0AfkbjM-DwS-IgTFLTvS1_XAXtA7f5GSX8EwNNVINfCn2Qah3OBspf0VP3gf0tVhWTv-MKButfMRW-hTCVkS-Maj7dZocQkAo3g8yGqP3YRcFMFyIfVD0cQAj6XWoDSW1GvuBHdSkr2jxZ52_Z7m8yl9CciLcjILFUfymqZqh2UEpsmPypWfILoQnIDel799fM_aZhU8JeLtuqKDyhEnsx6dBPkSj2q5x0wmNbTestP6cfscp8htigbRGvdKA6VhqwF3-NemDgHQ09hHKNwgolFECp0lEtJPAW0lB1P25dCeyWNkFrmsx9fIM1n3gCNAiFU7OhLI5VzMWIL8W8DiFpbuotSQbvuwmErGFMw",
             "Content-Type": "application/json",
           },
         }
       );
-      setChoices(Object.values(result.data.Master_status_perniagaan));
-      setShoicesBank(Object.values(result.data.Master_bank));
-      setShoicesCawangan(Object.values(result.data.Master_cawangan));
+      setMkasas(Object.values(result.data.Master_status_perniagaan));
+      setMkaBank(Object.values(result.data.Master_bank));
+      setMkaCawangan(Object.values(result.data.Master_cawangan));
       setShoicesKpemasaran(Object.values(result.data.Master_kaedah_pemasaran));
-      // setShoicesKpemasaran(Object.values(result.data.Master_kaedah_pemasaran));
+      // setCSniaga(Object.values(result.data.Master_sektor_perniagaan));
     };
     fetchData();
   }, []);
 
-  function spniaga(event) {
-    setSelectedChoice(event.target.value);
+  function onMkasas(event) {
+    setSelectMkasas(event.target.value);
   }
-  function nbank(event) {
-    setSelectedChoiceBank(event.target.value);
+  function onMkasasBank(event) {
+    setSelectedMkaBank(event.target.value);
   }
-  function cawangan(event) {
-    setSelectedChoiceCawangan(event.target.value);
+  function onCawangan(event) {
+    setSelectedCawangan(event.target.value);
   }
   function kpemasaran(event) {
     setSelectedChoiceKpemasaran(event.target.value);
@@ -61,10 +72,10 @@ function MaklumatForm() {
   // };
 
   return (
-    <div>
-      {console.log("choicesPerniagaan", choices)}
-      {console.log("choicesBank", choicesBank)}
-      {console.log("choicesCawangan", choicesCawangan)}
+    <>
+      {console.log("mkasas", mkasas)}
+      {console.log("mkaBank", mkaBank)}
+      {console.log("mkaCawangan", mkaCawangan)}
       <Grid className="grid">
         <form
           // onSubmit={this.handleSubmit}
@@ -77,10 +88,10 @@ function MaklumatForm() {
               fullWidth
               select
               label="Status Perniagaan"
-              value={selectedChoice}
-              onChange={spniaga}
+              value={selectMkasas}
+              onChange={onMkasas}
             >
-              {choices.map((choice, id) => (
+              {mkasas.map((choice, id) => (
                 <MenuItem key={id} value={choice}>
                   {choice.name}
                 </MenuItem>
@@ -93,10 +104,10 @@ function MaklumatForm() {
               id="standard-select-currency"
               select
               label="Nama Bank"
-              value={selectedChoiceBank}
-              onChange={nbank}
+              value={selectedMkaBank}
+              onChange={onMkasasBank}
             >
-              {choicesBank.map((choice, id) => (
+              {mkaBank.map((choice, id) => (
                 <MenuItem key={id} value={choice}>
                   {choice.name}
                 </MenuItem>
@@ -109,10 +120,10 @@ function MaklumatForm() {
               id="standard-select-currency"
               select
               label="Cawangan"
-              value={selectedChoiceCawangan}
-              onChange={cawangan}
+              value={selectedMkaCawangan}
+              onChange={onCawangan}
             >
-              {choicesCawangan.map((choice, id) => (
+              {mkaCawangan.map((choice, id) => (
                 <MenuItem key={id} value={choice}>
                   {choice.name}
                 </MenuItem>
@@ -136,7 +147,52 @@ function MaklumatForm() {
               ))}
             </TextField>
           </Collapsible>
-          <Collapsible trigger="Maklumat Peribadi Pemohon"></Collapsible>
+          <Collapsible trigger="Maklumat Peribadi Pemohon">
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="NamaPemohon"
+              label="Nama Pemohon"
+              disabled
+              value={user.name}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="NoKpBaru"
+              label="No Kad Pengenalan"
+              disabled
+              value={user.no_kp_baru}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="NoKpLama"
+              label="No Kad Pengenalan Lama"
+              value={user.no_kp_lama}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="number"
+              id="Umur"
+              label="Umur"
+              value={user.umur}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="Email"
+              label="Email"
+              disabled
+              value={user.email}
+            />
+          </Collapsible>
           <Collapsible trigger="Maklumat Perniagaan">
             <p>
               This is the collapsible content. It can be any element or React
@@ -147,12 +203,12 @@ function MaklumatForm() {
               section!
             </p>
           </Collapsible>
-          <IonButton expand="full" type="button" className="green">
+          <IonButton expand="block" type="button" color="success ion-padding">
             Simpan
           </IonButton>
         </form>
       </Grid>
-    </div>
+    </>
   );
 }
 

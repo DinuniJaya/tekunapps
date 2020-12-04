@@ -20,6 +20,8 @@ const Profile: React.FC = (props) => {
   const user = getUser();
   const history = useHistory();
 
+  let purl = user.picture_url ? `assets/img/user.jpg` : `assets/img/user.jpg`;
+
   // handle click event of logout button
   const handleLogout = () => {
     removeUserSession();
@@ -32,7 +34,7 @@ const Profile: React.FC = (props) => {
         <IonToolbar>
           <IonTitle>Profile</IonTitle>
           <IonAvatar slot="end" style={{ width: "50px", height: "50px" }}>
-            <img src="/assets/img/user.jpg" />
+            <img src={purl} />
           </IonAvatar>
         </IonToolbar>
       </IonHeader>
@@ -47,10 +49,10 @@ const Profile: React.FC = (props) => {
         <MaklumatForm />
 
         <IonButton
-          expand="full"
+          expand="block"
           type="button"
           onClick={handleLogout}
-          className="blue"
+          className="blue ion-padding"
         >
           Log Keluar
         </IonButton>
