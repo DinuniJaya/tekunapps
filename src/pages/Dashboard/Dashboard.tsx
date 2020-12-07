@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { getUser } from "../../Utils/Common";
 import {
   IonContent,
@@ -31,6 +31,10 @@ const slideOpts = {
 const Dashboard: React.FC = (props) => {
   const user = getUser();
   const history = useHistory();
+  function handleClick() {
+    alert("click");
+    history.push("/Status");
+  }
 
   return (
     <>
@@ -62,7 +66,7 @@ const Dashboard: React.FC = (props) => {
         {/* End Slide */}
         <IonCardContent>
           <IonRow>
-            <IonCol className="iconMenu">
+            <IonCol className="iconMenu" onClick={handleClick}>
               <IonImg src="/assets/icon/status.svg" alt="Document" />
               <IonText>Status Pemohon</IonText>
             </IonCol>

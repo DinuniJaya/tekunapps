@@ -35,6 +35,7 @@ import Profile from "./pages/Profile/Profile";
 import Notification from "./pages/Notification/Notification";
 
 import "./Apps.css";
+import Status from "./pages/Status/Status";
 
 const App: React.FC = (props) => {
   // const [authLoading, setAuthLoading] = useState(true);
@@ -82,6 +83,7 @@ const App: React.FC = (props) => {
           <PublicRoute path="/login" component={Login} />
           <PublicRoute path="/Home" component={Home} exact={true} />
           <PublicRoute path="/Register" component={Register} exact={true} />
+          <PublicRoute path="/Status" component={Status} exact={true} />
           <Route exact path="/" render={() => <Redirect to="/home" />} />
         </IonRouterOutlet>
       </IonReactRouter>

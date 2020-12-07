@@ -3,35 +3,40 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { getUser } from "../../Utils/Common";
 import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 import "./Profile.css";
 import Collapsible from "react-collapsible";
-import { IonButton, IonButtons, IonRow, IonSegmentButton } from "@ionic/react";
+import { IonButton } from "@ionic/react";
 function MaklumatForm() {
   const user = getUser();
-  // <Start> Choices Maklumat Asas
+  // <Start> Maklumat Asas
   const [mkasas, setMkasas] = useState([]);
   const [mkaBank, setMkaBank] = useState([]);
   const [mkaCawangan, setMkaCawangan] = useState([]);
-  const [choicesKpemasaran, setShoicesKpemasaran] = useState([]);
-  // const [mkaAktiviti, setMkaAktiviti] = useState([]);
-  // const [mkaSktorNiaga, setMkaSektorNiaga] = useState([]);
+  const [mkaKpemasaran, setMkaKpemasaran] = useState([]);
+  const [mkaSktorNiaga, setMkaSektorNiaga] = useState([]);
+  const [mkaAktiviti, setMkaAktiviti] = useState([]);
 
   // selected Maklumat Asas
   const [selectMkasas, setSelectMkasas] = useState("");
   const [selectedMkaBank, setSelectedMkaBank] = useState("");
   const [selectedMkaCawangan, setSelectedCawangan] = useState("");
-  const [selectedChoiceKpemasaran, setSelectedChoiceKpemasaran] = useState("");
-  // const [selectedMkaSektorNiaga, setSelectedMkaSektorNiaga] = useState("");
-  // const [selectedMkaAktiviti, setSelectedMkaAktiviti] = useState("");
+  const [selectedMkaKpemasaran, setSelectedMkaKpemasaran] = useState("");
+  const [selectedMkaSektorNiaga, setSelectedMkaSektorNiaga] = useState("");
+  const [selectedMkaAktiviti, setSelectedMkaAktiviti] = useState("");
 
   // <End>
 
-  // <Start>Choices Maklumat Peribadi Pemohon
-  // const [userMpp, setUserMpp] = useState([]);
+  // <Start>Maklumat Peribadi Pemohon
+  const [mppsK, setMppsk] = useState([]);
+  const [mppsB, setMppsB] = useState([]);
+  const [mppsB_Kaum, setMppsB_Kaum] = useState([]);
+  const [mppsTp, setMppsTp] = useState([]);
 
   // selected Maklumat Peribadi Pemohon
-  // const [selectedUserMpp, setSelectedUserMpp] = useState("");
+  const [smppsK, setSMppsk] = useState("");
+  const [smppsB, setSMppsB] = useState("");
+  const [smppsB_Kaum, setSMppsB_Kaum] = useState("");
+  const [smppsTp, setSMppsTp] = useState("");
   // <End>
   useEffect(() => {
     const fetchData = async () => {
@@ -46,15 +51,24 @@ function MaklumatForm() {
           },
         }
       );
+      // set Maklumat Asas
       setMkasas(Object.values(result.data.Master_status_perniagaan));
       setMkaBank(Object.values(result.data.Master_bank));
       setMkaCawangan(Object.values(result.data.Master_cawangan));
-      setShoicesKpemasaran(Object.values(result.data.Master_kaedah_pemasaran));
-      // setCSniaga(Object.values(result.data.Master_sektor_perniagaan));
+      setMkaKpemasaran(Object.values(result.data.Master_kaedah_pemasaran));
+      setMkaSektorNiaga(Object.values(result.data.Master_sektor_perniagaan));
+      setMkaAktiviti(Object.values(result.data.Master_sektor_perniagaan));
+
+      // set Maklumat Peribadi
+      setMppsk(Object.values(result.data.Master_status_kediaman));
+      setMppsB(Object.values(result.data.Master_bangsa));
+      setMppsB_Kaum(Object.values(result.data.MasterBumiputera));
+      setMppsTp(Object.values(result.data.Master_taraf_pendidikan));
     };
     fetchData();
   }, []);
 
+  // onchange Maklumat Asas
   function onMkasas(event) {
     setSelectMkasas(event.target.value);
   }
@@ -65,24 +79,39 @@ function MaklumatForm() {
     setSelectedCawangan(event.target.value);
   }
   function kpemasaran(event) {
-    setSelectedChoiceKpemasaran(event.target.value);
+    setSelectedMkaKpemasaran(event.target.value);
+  }
+  function onMkaSniaga(event) {
+    setSelectedMkaSektorNiaga(event.target.value);
+  }
+  function onMkaAktiviti(event) {
+    setSelectedMkaAktiviti(event.target.value);
+  }
+
+  // onchange Maklumat Peribadi
+  function onMppsK(event) {
+    setSMppsk(event.target.value);
+  }
+  function onMppsB(event) {
+    setSMppsB(event.target.value);
+  }
+  function onMppsB_Kaum(event) {
+    setSMppsB_Kaum(event.target.value);
+  }
+  function onMppsTp(event) {
+    setSMppsTp(event.target.value);
   }
 
   // handleSubmit = (event) => {
   //   e.preventDefault();
   // };
-
-  // <motion.div
-  //     id="app"
-  //     className={show ? "disable-scroll" : ""}
-  //     initial={{ opacity: 0 }}
-  //     animate={{ opacity: 1 }}
-  //   ></motion.div>
   return (
     <>
-      {console.log("mkasas", mkasas)}
+      {/* {console.log("mkasas", mkasas)}
       {console.log("mkaBank", mkaBank)}
-      {console.log("mkaCawangan", mkaCawangan)}
+      {console.log("mkaCawangan", mkaCawangan)} */}
+      {console.log("mkaSperniagaan", mkaSktorNiaga)}
+      {/* {console.log("setMkaAktiviti", setMkaAktiviti)} */}
       <motion.Grid className="grid">
         <form
           // onSubmit={this.handleSubmit}
@@ -146,12 +175,52 @@ function MaklumatForm() {
               id="standard-select-currency"
               select
               label="Kaedah Pemasaran"
-              value={selectedChoiceKpemasaran}
+              value={selectedMkaKpemasaran}
               onChange={kpemasaran}
             >
-              {choicesKpemasaran.map((choice, id) => (
+              {mkaKpemasaran.map((choice, id) => (
                 <MenuItem key={id} value={choice}>
                   {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="NoAkaunAsas"
+              label="No Akaun Bank"
+              value={user.no_akaun_asas}
+            ></TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="SektorPerniagaan"
+              select
+              label="Sektor Perniagaan"
+              value={selectedMkaSektorNiaga}
+              onChange={onMkaSniaga}
+            >
+              {mkaSktorNiaga.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="SektorPerniagaanAktiviti"
+              select
+              label="Aktiviti"
+              value={selectedMkaAktiviti}
+              onChange={onMkaAktiviti}
+            >
+              {mkaAktiviti.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.details[0].desc}
                 </MenuItem>
               ))}
             </TextField>
@@ -201,15 +270,103 @@ function MaklumatForm() {
               disabled
               value={user.email}
             />
+            <hr />
             <TextField
               variant="outlined"
               fullWidth
-              type="text"
+              select
               id="TarafPerkahwinan"
               label="Taraf Perkahwinan"
+              // onChange={TarafPerkahwinan}
+            >
+              <MenuItem value="Bujang">Bujang</MenuItem>
+              <MenuItem value="Berkahwin">Berkahwin</MenuItem>
+              <MenuItem value="Duda">Duda</MenuItem>
+              <MenuItem value="Janda">Janda</MenuItem>
+              <MenuItem value="Ibu Tungal">Ibu Tungal</MenuItem>
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="StatusKediaman"
+              select
+              label="Status Kediaman"
+              value={smppsK}
+              onChange={onMppsK}
+            >
+              {mppsK.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="Bangsa"
+              select
+              label="Bangsa"
+              value={smppsB}
+              onChange={onMppsB}
+            >
+              {mppsB.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="Kaum"
+              select
+              label="Kaum"
+              value={smppsB_Kaum}
+              onChange={onMppsB_Kaum}
+            >
+              {mppsB_Kaum.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="number"
+              id="BilanganTanggungan"
+              label="Bilangan Tanggungan"
+            ></TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="number"
+              id="NoTel"
+              label="No Telefon"
               disabled
-              value={user.email}
+              value={user.no_tel}
             />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="TarafPendidikan"
+              select
+              label="Taraf Pendidikan"
+              value={smppsTp}
+              onChange={onMppsTp}
+            >
+              {mppsTp.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Collapsible>
           <Collapsible trigger="Maklumat Perniagaan">
             <p>
