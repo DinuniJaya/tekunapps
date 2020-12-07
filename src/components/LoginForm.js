@@ -16,7 +16,7 @@ import { IonButton } from "@ionic/react";
 
 function LoginForm(props) {
   const [loading, setLoading] = useState(false);
-  const no_kp_baru = useFormInput("");
+  const username = useFormInput("");
   const password = useFormInput("");
   const [error, setError] = useState(null);
 
@@ -24,30 +24,31 @@ function LoginForm(props) {
 
   // console.log("props", history);
 
-  // handle button click of login form
-  function ionAlert() {
-    const alert = document.createElement("ion-alert");
-    alert.header = "Server Bussy";
-    // alert.subHeader = "Server Error 500";
-    alert.message =
-      "Server are too busy at the moment.. please try again later";
-    alert.buttons = ["OK"];
+  // // handle button click of login form
+  // function ionAlert() {
+  //   const alert = document.createElement("ion-alert");
+  //   alert.header = "Server Bussy";
+  //   // alert.subHeader = "Server Error 500";
+  //   alert.message =
+  //     "Server are too busy at the moment.. please try again later";
+  //   alert.buttons = ["OK"];
 
-    document.body.appendChild(alert);
-    return alert.present();
-  }
+  //   document.body.appendChild(alert);
+  //   return alert.present();
+  // }
   const handleLogin = () => {
-    ionAlert(null);
+    // ionAlert(null);
     setLoading(true);
 
     axios
-      // .post("https://tekun2.nakmenangtender.com/api/v2/login", {
-      .post("https://tekun2.nakmenangtender.com/api/login", {
-        no_kp_baru: no_kp_baru.value,
+      .post("https://tekun2.nakmenangtender.com/api/v2/login", {
+        // .post("https://tekun2.nakmenangtender.com/api/login", {
+        username: username.value,
         password: password.value,
       })
       .then((response) => {
         setLoading(false);
+        // ionLogged;
         setUserSession(response.data.user_info.token, response.data.user_info);
         console.log("setUserSession", window.sessionStorage.getItem("token"));
         history.push("/Dashboard");
@@ -55,9 +56,9 @@ function LoginForm(props) {
       .catch((error) => {
         console.log("error", error);
         setLoading(false);
-        if (error?.response?.status === 401)
-          ionAlert(error.response.data.message);
-        else setError("Something went wrong. Please try again later.");
+        // if (error?.response?.status === 401)
+        //   ionAlert(error.response.data.message);
+        // else ionAlert("Something went wrong. Please try again later.");
       });
   };
 
@@ -87,10 +88,10 @@ function LoginForm(props) {
                 fullWidth
                 id="no_kad_pengenalan"
                 label="No Kad Pengenalan"
-                name="no_kp_baru"
+                name="username"
                 type="text"
                 autoComplete="No Kad Pengenalan"
-                {...no_kp_baru}
+                {...username}
               />
               <TextField
                 variant="outlined"

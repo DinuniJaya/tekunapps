@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { getUser } from "../../Utils/Common";
 import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
@@ -35,8 +36,7 @@ function MaklumatForm() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.post(
-        // `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
-        `/profileform.json`,
+        `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
         {},
         {
           headers: {
@@ -46,11 +46,6 @@ function MaklumatForm() {
           },
         }
       );
-      // axios.post(`url1`, fetchData)
-      // .then((response) => response.json())
-      // .then((response) => this.setState({ fetchData: response }))
-      // .catch((error) => console.log("error", error));
-
       setMkasas(Object.values(result.data.Master_status_perniagaan));
       setMkaBank(Object.values(result.data.Master_bank));
       setMkaCawangan(Object.values(result.data.Master_cawangan));
@@ -77,12 +72,18 @@ function MaklumatForm() {
   //   e.preventDefault();
   // };
 
+  // <motion.div
+  //     id="app"
+  //     className={show ? "disable-scroll" : ""}
+  //     initial={{ opacity: 0 }}
+  //     animate={{ opacity: 1 }}
+  //   ></motion.div>
   return (
     <>
       {console.log("mkasas", mkasas)}
       {console.log("mkaBank", mkaBank)}
       {console.log("mkaCawangan", mkaCawangan)}
-      <Grid className="grid">
+      <motion.Grid className="grid">
         <form
           // onSubmit={this.handleSubmit}
           className="form"
@@ -90,6 +91,8 @@ function MaklumatForm() {
         >
           <Collapsible trigger="Maklumat Asas">
             <TextField
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               variant="outlined"
               fullWidth
               select
@@ -198,6 +201,15 @@ function MaklumatForm() {
               disabled
               value={user.email}
             />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="TarafPerkahwinan"
+              label="Taraf Perkahwinan"
+              disabled
+              value={user.email}
+            />
           </Collapsible>
           <Collapsible trigger="Maklumat Perniagaan">
             <p>
@@ -213,7 +225,7 @@ function MaklumatForm() {
             Simpan
           </IonButton>
         </form>
-      </Grid>
+      </motion.Grid>
     </>
   );
 }
