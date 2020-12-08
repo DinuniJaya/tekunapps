@@ -11,11 +11,9 @@
   background-clip: padding-box;
 }
 
-/* Style your items */
 .masonry-grid_column > div {
-  /* change div to reference your elements you put in <Masonry> */
   background: #ffffff;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 9px 10px rgba(8, 58, 125, 4%);
@@ -30,24 +28,24 @@
 .item-1 {
   height: 200px;
   background: rgba(128, 200, 255, 0.63) !important;
-  box-shadow: 2px 7px 10px -5px #2196f3 !important;
+  box-shadow: -1px 7px 4px -5px #2196f3 !important;
 }
 .item-2 {
   height: 220px;
   background: rgba(255, 198, 128, 0.34) !important;
-  box-shadow: 2px 7px 10px -5px rgb(243 143 17) !important;
+  box-shadow: -1px 7px 4px -5px rgb(243 143 17) !important;
 }
 .item-3 {
   position: relative;
   height: 210px;
   background: rgba(243, 237, 234, 1) !important;
-  box-shadow: 2px 7px 10px -5px rgb(241 132 173) !important;
+  box-shadow: -1px 7px 4px -5px rgb(241 132 173) !important;
 }
 .item-4 {
   position: relative;
   height: 210px;
   background: rgb(221 224 255) !important;
-  box-shadow: 2px 7px 10px -5px rgb(60 78 255) !important;
+  box-shadow: -1px 7px 4px -5px rgb(60 78 255) !important;
 }
 .item-3 > img {
   position: absolute !important;
