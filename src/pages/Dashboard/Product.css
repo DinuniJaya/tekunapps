@@ -1,0 +1,70 @@
+.masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin: 0px; /* gutter size offset */
+  width: 100%;
+  padding: 10px;
+}
+.masonry-grid_column {
+  padding: 5px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  background: #ffffff;
+  margin-bottom: 8px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 9px 10px rgba(8, 58, 125, 4%);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.masonry-grid_column > div > img {
+  /* margin: 10px -10px; */
+  float: left;
+}
+
+.item-1 {
+  height: 200px;
+  background: rgba(128, 200, 255, 0.63) !important;
+  box-shadow: 2px 7px 10px -5px #2196f3 !important;
+}
+.item-2 {
+  height: 220px;
+  background: rgba(255, 198, 128, 0.34) !important;
+  box-shadow: 2px 7px 10px -5px rgb(243 143 17) !important;
+}
+.item-3 {
+  position: relative;
+  height: 210px;
+  background: rgba(243, 237, 234, 1) !important;
+  box-shadow: 2px 7px 10px -5px rgb(241 132 173) !important;
+}
+.item-4 {
+  position: relative;
+  height: 210px;
+  background: rgb(221 224 255) !important;
+  box-shadow: 2px 7px 10px -5px rgb(60 78 255) !important;
+}
+.item-3 > img {
+  position: absolute !important;
+  content: "";
+  bottom: 0;
+  right: 0;
+  border-radius: 11px;
+}
+.item-4 > img {
+  position: absolute !important;
+  content: "";
+  bottom: 0;
+  right: 0;
+  border-radius: 11px;
+}
+.item-5 {
+  position: relative;
+  height: 250px;
+  background: rgb(221 224 255) !important;
+}

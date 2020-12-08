@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { getUser } from "../../Utils/Common";
+import { getToken, getUser } from "../../Utils/Common";
 import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Profile.css";
 import Collapsible from "react-collapsible";
 import { IonButton } from "@ionic/react";
-function MaklumatForm() {
+
+function MaklumatForm(props) {
   const user = getUser();
+
   // <Start> Maklumat Asas
   const [mkasas, setMkasas] = useState([]);
   const [mkaBank, setMkaBank] = useState([]);
@@ -39,15 +41,20 @@ function MaklumatForm() {
   const [smppsTp, setSMppsTp] = useState("");
   // <End>
   useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      return console.log("token", token);
+    }
+
     const fetchData = async () => {
       const result = await axios.post(
         `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
         {},
         {
           headers: {
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5NjIzYTZmMzgyMWI3ZjhmNmM4MjYxYWE0NDJiYzAwMDJlYzhhYWQ1MjQ2Yzk0ZDViMTEyMmRkZTdiOTFlNTJjN2FkZmUwOWRiNDg1NmFhIn0.eyJhdWQiOiIzIiwianRpIjoiNzk2MjNhNmYzODIxYjdmOGY2YzgyNjFhYTQ0MmJjMDAwMmVjOGFhZDUyNDZjOTRkNWIxMTIyZGRlN2I5MWU1MmM3YWRmZTA5ZGI0ODU2YWEiLCJpYXQiOjE2MDY0OTc0NzksIm5iZiI6MTYwNjQ5NzQ3OSwiZXhwIjoxNjM4MDMzNDc4LCJzdWIiOiIxMTkwIiwic2NvcGVzIjpbXX0.xXgcWy5bnchckWtBTb_ck0Ri-c3ZpMQUChq-qUXSZ1jEjNE1a5PyJ3asxhQBrbrcVRt8LpFN1TD5B6YDjn4pRkqDQ_ElahIWny5URHbcPFNPG1W1ZDgMuvuM9Qo5HzadK1XYpnMoguNASU8zck1Jj4qcvv4RBKpeV_Y00z7bzalv6wICuDerSKytTcxcIKDQkdCPhvQD7NaeRVjAX-Zvm4xIG1D0CpFO7XTXnO-12WNQLwk358i8zehOXf-hMKIKme1-tE71IYDFSzRH2VxS3K3D8U1EDXZplnR02fURYwjope9vkGKYg9NhZwOCu73gho0k0AfkbjM-DwS-IgTFLTvS1_XAXtA7f5GSX8EwNNVINfCn2Qah3OBspf0VP3gf0tVhWTv-MKButfMRW-hTCVkS-Maj7dZocQkAo3g8yGqP3YRcFMFyIfVD0cQAj6XWoDSW1GvuBHdSkr2jxZ52_Z7m8yl9CciLcjILFUfymqZqh2UEpsmPypWfILoQnIDel799fM_aZhU8JeLtuqKDyhEnsx6dBPkSj2q5x0wmNbTestP6cfscp8htigbRGvdKA6VhqwF3-NemDgHQ09hHKNwgolFECp0lEtJPAW0lB1P25dCeyWNkFrmsx9fIM1n3gCNAiFU7OhLI5VzMWIL8W8DiFpbuotSQbvuwmErGFMw",
+            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
         }
       );
@@ -102,22 +109,40 @@ function MaklumatForm() {
     setSMppsTp(event.target.value);
   }
 
-  // handleSubmit = (event) => {
-  //   e.preventDefault();
-  // };
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios({
+      method: "POST",
+      url: "https://tekun2.nakmenangtender.com/api/v2/profileFormParam",
+      data: setSelectMkasas,
+      setSelectedMkaBank,
+      setSelectedCawangan,
+      setSelectedMkaKpemasaran,
+      setSelectedMkaSektorNiaga,
+      setSelectedMkaAktiviti,
+      setSMppsk,
+      setSMppsB,
+      setSMppsB_Kaum,
+      setSMppsTp,
+    }).then((response) => {
+      if (response.data.status === "success") {
+        alert("Message Sent.");
+        // this.resetForm();
+      } else if (response.data.status === "fail") {
+        alert("Message failed to send.");
+      }
+    });
+  }
+  console.log("handleSubmit", handleSubmit);
   return (
     <>
       {/* {console.log("mkasas", mkasas)}
       {console.log("mkaBank", mkaBank)}
       {console.log("mkaCawangan", mkaCawangan)} */}
-      {console.log("mkaSperniagaan", mkaSktorNiaga)}
+      {/* {console.log("mkaSperniagaan", mkaSktorNiaga)} */}
       {/* {console.log("setMkaAktiviti", setMkaAktiviti)} */}
       <motion.Grid className="grid">
-        <form
-          // onSubmit={this.handleSubmit}
-          className="form"
-          noValidate
-        >
+        <form onSubmit={handleSubmit} className="form" noValidate>
           <Collapsible trigger="Maklumat Asas">
             <TextField
               initial={{ opacity: 0 }}
@@ -378,7 +403,12 @@ function MaklumatForm() {
               section!
             </p>
           </Collapsible>
-          <IonButton expand="block" type="button" color="success ion-padding">
+          <IonButton
+            type="submit"
+            expand="block"
+            type="button"
+            color="success ion-padding"
+          >
             Simpan
           </IonButton>
         </form>

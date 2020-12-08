@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getUser } from "../../Utils/Common";
 import {
   IonContent,
@@ -14,26 +14,32 @@ import {
   IonImg,
   IonText,
   IonCardContent,
+  IonGrid,
+  IonIcon,
 } from "@ionic/react";
 
 import "./Dashboard.css";
-import { notificationsOutline } from "ionicons/icons";
+import { notificationsOutline, arrowForward } from "ionicons/icons";
+
+import Product from "./Product";
 
 const slideOpts = {
   initialSlide: 1,
   speed: 100,
   autoplay: {
-    delay: 1500,
+    delay: 2500,
     disableOnInteraction: false,
   },
 };
 
 const Dashboard: React.FC = (props) => {
   const user = getUser();
-  const history = useHistory();
-  function handleClick() {
-    alert("click");
+  let history = useHistory();
+  function clickStatus() {
     history.push("/Status");
+  }
+  function clickCawangan() {
+    history.push("/Cawangan");
   }
 
   return (
@@ -57,7 +63,13 @@ const Dashboard: React.FC = (props) => {
             <img src="/assets/img/covid.png" alt="" />
           </IonSlide>
           <IonSlide className="ion-padding">
+            <img src="/assets/img/slide1.png" alt="" />
+          </IonSlide>
+          <IonSlide className="ion-padding">
             <img src="/assets/img/covid.png" alt="" />
+          </IonSlide>
+          <IonSlide className="ion-padding">
+            <img src="/assets/img/slide1.png" alt="" />
           </IonSlide>
           <IonSlide className="ion-padding">
             <img src="/assets/img/covid.png" alt="" />
@@ -66,7 +78,7 @@ const Dashboard: React.FC = (props) => {
         {/* End Slide */}
         <IonCardContent>
           <IonRow>
-            <IonCol className="iconMenu" onClick={handleClick}>
+            <IonCol className="iconMenu" onClick={clickStatus}>
               <IonImg src="/assets/icon/status.svg" alt="Document" />
               <IonText>Status Pemohon</IonText>
             </IonCol>
@@ -74,7 +86,7 @@ const Dashboard: React.FC = (props) => {
               <IonImg src="/assets/icon/form.svg" alt="Document" />
               <IonText>Bantuan</IonText>
             </IonCol>
-            <IonCol className="iconMenu">
+            <IonCol className="iconMenu" onClick={clickCawangan}>
               <IonImg src="/assets/icon/stayhome.svg" alt="Document" />
               <IonText>Cawangan</IonText>
             </IonCol>
@@ -100,6 +112,19 @@ const Dashboard: React.FC = (props) => {
             </IonCol>
           </IonRow>
         </IonCardContent> */}
+        <IonGrid>
+          <IonRow className="main">
+            <IonTitle>
+              Produk
+              <IonIcon
+                className="iconRight"
+                color="success"
+                icon={arrowForward}
+              />
+            </IonTitle>
+            <Product />
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </>
   );

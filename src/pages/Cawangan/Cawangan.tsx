@@ -10,7 +10,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 
-const Status: React.FC = () => {
+const Cawangan: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -18,12 +18,12 @@ const Status: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton icon="chevron-back" />
           </IonButtons>
-          <IonTitle>Status</IonTitle>
+          <IonTitle>Cawangan</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>Status</IonContent>
+      <IonContent>Cawangan</IonContent>
     </IonPage>
   );
 };
 
-export default Status;
+export default Cawangan;

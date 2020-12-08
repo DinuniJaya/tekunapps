@@ -5,6 +5,12 @@ export const getUser = () => {
   else return null;
 };
 
+export const getUserProfile = () => {
+  const userProfile = sessionStorage.getItem("dataProfile");
+  if (userProfile) return JSON.parse(userProfile);
+  else return null;
+};
+
 // return the token from the session storage
 export const getToken = () => {
   return sessionStorage.getItem("token") || null;
@@ -14,10 +20,12 @@ export const getToken = () => {
 export const removeUserSession = () => {
   sessionStorage.removeItem("token");
   sessionStorage.removeItem("user_info");
+  sessionStorage.removeItem("dataProfile");
 };
 
 // set the token and user from the session storage
-export const setUserSession = (token, user_info) => {
+export const setUserSession = (token, user_info, dataProfile) => {
   sessionStorage.setItem("token", token);
   sessionStorage.setItem("user_info", JSON.stringify(user_info));
+  sessionStorage.setItem("dataProfile", JSON.stringify(dataProfile));
 };

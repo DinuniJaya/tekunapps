@@ -1,6 +1,9 @@
-/* .swiper-slide {
-  width: 65%;
-} */
+* {
+  box-sizing: border-box;
+}
+.swiper-slide {
+  width: 70% !important;
+}
 .swiper-slide img {
   border-radius: 10px !important;
 }
@@ -12,7 +15,7 @@
 
 /* Menu */
 .iconMenu {
-  font-weight: 300;
+  font-size: 12px;
   text-align: center;
   box-shadow: 0px 9px 10px rgba(8, 58, 125, 4%);
   border-radius: 10px;
@@ -38,4 +41,7 @@
   font-size: 10px;
   margin-left: 10px;
   margin-right: 10px;
+}
+.iconRight {
+  float: right;
 }

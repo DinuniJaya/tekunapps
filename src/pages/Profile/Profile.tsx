@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { useHistory } from "react-router";
 import { getUser, removeUserSession } from "../../Utils/Common";
 import {
@@ -19,6 +18,7 @@ import MaklumatForm from "./MaklumatForm";
 const Profile: React.FC = (props) => {
   const user = getUser();
   const history = useHistory();
+  // console.log(getUser);
 
   let purl = user.picture_url ? `assets/img/user.jpg` : `assets/img/user.jpg`;
 
@@ -39,13 +39,14 @@ const Profile: React.FC = (props) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonCardContent>
+        {/* <IonCardContent>
           No Kad Pengenalan : {user.no_kp_baru}
           <br />
           Email : {user.email}
           <br />
           No Tel : {user.no_tel}
-        </IonCardContent>
+          <br />
+        </IonCardContent> */}
         <MaklumatForm />
 
         <IonButton
