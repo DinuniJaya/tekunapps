@@ -78,71 +78,66 @@ function LoginForm(props) {
         <hr />
       </div>
       <Grid className="grid">
-        <Grid>
-          <div className="LoginContainer">
-            <form className="form" noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="no_kad_pengenalan"
-                label="No Kad Pengenalan"
-                name="username"
-                type="text"
-                autoComplete="No Kad Pengenalan"
-                {...username}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="password"
-                name="kata laluan"
-                label="Kata Laluan"
-                type="password"
-                name="password"
-                {...password}
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Ingat kata laluan"
-              />
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                className="submit"
-                type="button"
-                value={loading ? "Loading..." : "Login"}
-                onClick={handleLogin}
-                disabled={loading}
-              >
-                Log Masuk
-              </Button>
-              <Grid container className="flex-space">
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    Lupa kata laluan ?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/Register" variant="body2">
-                    {"Daftar Akaun?"}
-                  </Link>
-                </Grid>
+        <div className="LoginContainer">
+          <form className="form" noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="no_kad_pengenalan"
+              label="No Kad Pengenalan"
+              name="username"
+              type="text"
+              autoComplete="No Kad Pengenalan"
+              {...username}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              name="kata laluan"
+              label="Kata Laluan"
+              type="password"
+              name="password"
+              {...password}
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Ingat kata laluan"
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="submit"
+              type="button"
+              value={loading ? "Loading..." : "Login"}
+              onClick={handleLogin}
+              disabled={loading}
+            >
+              Log Masuk
+            </Button>
+            <Grid container className="flex-space">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Lupa kata laluan ?
+                </Link>
               </Grid>
-            </form>
-          </div>
-          <IonButton
-            className="green"
-            onClick={() => history.push("./Register")}
-          >
-            Daftar
-          </IonButton>
-        </Grid>
+              <Grid item>
+                <Link href="/Register" variant="body2">
+                  {"Daftar Akaun?"}
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+        <IonButton className="green" onClick={() => history.push("./Register")}>
+          Daftar
+        </IonButton>
       </Grid>
 
       <div className="ion-padding">

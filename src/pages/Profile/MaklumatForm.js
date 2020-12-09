@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { getToken, getUser } from "../../Utils/Common";
+import { getToken, getUser, setUserSession } from "../../Utils/Common";
 import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Profile.css";
 import Collapsible from "react-collapsible";
@@ -9,6 +9,34 @@ import { IonButton } from "@ionic/react";
 
 function MaklumatForm(props) {
   const user = getUser();
+
+  // v2/user
+  useEffect(() => {
+    const fUserP = async () => {
+      const resUserP = await axios
+        .post(
+          `https://tekun2.nakmenangtender.com/api/v2/user`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((result) => {
+          console.log("resultUser", result);
+          let resuser = result;
+          if (resuser.dataProfile) {
+            setUserSession("dataProfile", JSON.stringify(resuser));
+            this.setState({ redirectToReferrer: true });
+          }
+          // else alert(result.error);
+        });
+    };
+    fUserP();
+  }, []);
 
   // <Start> Maklumat Asas
   const [mkasas, setMkasas] = useState([]);
@@ -40,12 +68,9 @@ function MaklumatForm(props) {
   const [smppsB_Kaum, setSMppsB_Kaum] = useState("");
   const [smppsTp, setSMppsTp] = useState("");
   // <End>
-  useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      return console.log("token", token);
-    }
 
+  // /v2/profileFormParam
+  useEffect(() => {
     const fetchData = async () => {
       const result = await axios.post(
         `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
@@ -58,6 +83,7 @@ function MaklumatForm(props) {
           },
         }
       );
+
       // set Maklumat Asas
       setMkasas(Object.values(result.data.Master_status_perniagaan));
       setMkaBank(Object.values(result.data.Master_bank));
@@ -109,31 +135,31 @@ function MaklumatForm(props) {
     setSMppsTp(event.target.value);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    axios({
-      method: "POST",
-      url: "https://tekun2.nakmenangtender.com/api/v2/profileFormParam",
-      data: setSelectMkasas,
-      setSelectedMkaBank,
-      setSelectedCawangan,
-      setSelectedMkaKpemasaran,
-      setSelectedMkaSektorNiaga,
-      setSelectedMkaAktiviti,
-      setSMppsk,
-      setSMppsB,
-      setSMppsB_Kaum,
-      setSMppsTp,
-    }).then((response) => {
-      if (response.data.status === "success") {
-        alert("Message Sent.");
-        // this.resetForm();
-      } else if (response.data.status === "fail") {
-        alert("Message failed to send.");
-      }
-    });
-  }
-  console.log("handleSubmit", handleSubmit);
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   axios({
+  //     method: "POST",
+  //     url: "https://tekun2.nakmenangtender.com/api/v2/profileFormParam",
+  //     data: setSelectMkasas,
+  //     setSelectedMkaBank,
+  //     setSelectedCawangan,
+  //     setSelectedMkaKpemasaran,
+  //     setSelectedMkaSektorNiaga,
+  //     setSelectedMkaAktiviti,
+  //     setSMppsk,
+  //     setSMppsB,
+  //     setSMppsB_Kaum,
+  //     setSMppsTp,
+  //   }).then((response) => {
+  //     if (response.data.status === "success") {
+  //       alert("Message Sent.");
+  //       // this.resetForm();
+  //     } else if (response.data.status === "fail") {
+  //       alert("Message failed to send.");
+  //     }
+  //   });
+  // }
+  // console.log("handleSubmit", handleSubmit);
   return (
     <>
       {/* {console.log("mkasas", mkasas)}
@@ -142,8 +168,12 @@ function MaklumatForm(props) {
       {/* {console.log("mkaSperniagaan", mkaSktorNiaga)} */}
       {/* {console.log("setMkaAktiviti", setMkaAktiviti)} */}
       <motion.Grid className="grid">
-        <form onSubmit={handleSubmit} className="form" noValidate>
-          <Collapsible trigger="Maklumat Asas">
+        <form
+          // onSubmit={handleSubmit}
+          className="form"
+          noValidate
+        >
+          <Collapsible trigger="Maklumat Asas" className="iconP1">
             <TextField
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -250,7 +280,7 @@ function MaklumatForm(props) {
               ))}
             </TextField>
           </Collapsible>
-          <Collapsible trigger="Maklumat Peribadi Pemohon">
+          <Collapsible trigger="Maklumat Peribadi Pemohon" className="iconP2">
             <TextField
               variant="outlined"
               fullWidth
@@ -283,7 +313,7 @@ function MaklumatForm(props) {
               type="number"
               id="Umur"
               label="Umur"
-              value={user.umur}
+              value={(user.umur = 40)}
             />
             <hr />
             <TextField
@@ -299,17 +329,11 @@ function MaklumatForm(props) {
             <TextField
               variant="outlined"
               fullWidth
-              select
+              // select
               id="TarafPerkahwinan"
               label="Taraf Perkahwinan"
               // onChange={TarafPerkahwinan}
-            >
-              <MenuItem value="Bujang">Bujang</MenuItem>
-              <MenuItem value="Berkahwin">Berkahwin</MenuItem>
-              <MenuItem value="Duda">Duda</MenuItem>
-              <MenuItem value="Janda">Janda</MenuItem>
-              <MenuItem value="Ibu Tungal">Ibu Tungal</MenuItem>
-            </TextField>
+            ></TextField>
             <hr />
             <TextField
               variant="outlined"
@@ -393,7 +417,7 @@ function MaklumatForm(props) {
               ))}
             </TextField>
           </Collapsible>
-          <Collapsible trigger="Maklumat Perniagaan">
+          <Collapsible trigger="Maklumat Perniagaan" className="iconP3">
             <p>
               This is the collapsible content. It can be any element or React
               component you like.

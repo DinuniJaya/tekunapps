@@ -49,6 +49,7 @@
 .onboardbg img {
   top: -45px;
   position: relative;
+  width: 100%;
 }
 
 ion-button.onstart {

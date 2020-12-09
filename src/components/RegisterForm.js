@@ -60,91 +60,86 @@ class RegisterForm extends Component {
           <img src="./assets/img/people.svg" alt="people" />
         </div>
         <Grid className="grid">
-          <Grid>
-            <div className="LoginContainer">
-              <form className="form" noValidate>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="No Kad Pengenalan"
-                  name="username"
-                  autoComplete="No Kad Pengenalan"
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  onChange={this.onChange}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="Kata Laluan"
-                  autoComplete="current-password"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={this.onChange}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="Kata Laluan Pengesahan"
-                  autoComplete="current-password"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={this.onChange}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="no telefon"
-                  label="No Telefon"
-                  type="text"
-                  placeholder="6xxxxxxxxxxx"
-                  autoComplete="6xxxxxxxxxxx"
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="alamatemail"
-                  label="Alamat Email"
-                  id="email"
-                  autoComplete=""
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  onChange={this.onChange}
-                />
+          <div className="LoginContainer">
+            <form className="form" noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="No Kad Pengenalan"
+                name="username"
+                autoComplete="No Kad Pengenalan"
+                type="text"
+                placeholder="Username"
+                onChange={this.onChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Kata Laluan"
+                autoComplete="current-password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.onChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Kata Laluan Pengesahan"
+                autoComplete="current-password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.onChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="no telefon"
+                label="No Telefon"
+                type="text"
+                placeholder="6xxxxxxxxxxx"
+                autoComplete="6xxxxxxxxxxx"
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="alamatemail"
+                label="Alamat Email"
+                id="email"
+                autoComplete=""
+                type="text"
+                placeholder="Email"
+                onChange={this.onChange}
+              />
 
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  className="button"
-                  value="Sign Up"
-                  onClick={this.signup}
-                >
-                  Register
-                </Button>
-              </form>
-            </div>
-            <Grid item>
-              <Button href="/Login" className="button">
-                {"Login"}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className="button"
+                value="Sign Up"
+                onClick={this.signup}
+              >
+                Register
               </Button>
-            </Grid>
+            </form>
+          </div>
+          <Grid>
+            <Button href="/Login" className="button">
+              {"Login"}
+            </Button>
           </Grid>
         </Grid>
       </div>

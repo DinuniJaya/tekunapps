@@ -32,8 +32,11 @@
   position: relative;
   border: 1px solid white;
   padding: 10px 40px;
-  background: rgba(246, 246, 246, 0.993);
+  background: #5260ff1f;
   color: black;
+}
+.Collapsible__trigger.is-closed {
+  background: rgba(246, 246, 246, 0.993);
 }
 .Collapsible__trigger:after {
   font-family: "FontAwesome";
@@ -48,6 +51,7 @@
   font-family: "FontAwesome";
   content: "\f007";
   position: absolute;
+  z-index: -1;
   left: 10px;
   top: 10px;
   display: block;
@@ -72,4 +76,43 @@
   font-size: 12px;
   background-color: #cbb700;
   color: black;
+}
+
+.iconP1::before {
+  font-family: "FontAwesome";
+  content: "\f009";
+  position: absolute;
+  z-index: 2;
+  padding: 10px 2px;
+  left: 8px;
+  font-size: 20px;
+  opacity: 0.1;
+  color: #2e3192;
+}
+.iconP2::before {
+  font-family: "FontAwesome";
+  content: "\f0c0";
+  position: absolute;
+  z-index: 2;
+  padding: 10px 2px;
+  left: 8px;
+  font-size: 20px;
+  opacity: 0.1;
+  color: #2e3192;
+}
+.iconP3::before {
+  font-family: "FontAwesome";
+  content: "\f09d";
+  position: absolute;
+  z-index: 2;
+  padding: 10px 2px;
+  left: 8px;
+  font-size: 20px;
+  opacity: 0.1;
+  color: #2e3192;
+}
+.Collapsible__trigger.is-open:before {
+  position: absolute;
+  z-index: 1;
+  display: block;
 }
