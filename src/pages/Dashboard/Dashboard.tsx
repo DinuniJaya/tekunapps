@@ -80,7 +80,7 @@ const Dashboard: React.FC = (props) => {
           <IonRow>
             <IonCol className="iconMenu" onClick={clickStatus}>
               <IonImg src="/assets/icon/status.svg" alt="Document" />
-              <IonText>Status Pemohon</IonText>
+              <IonText>Permohonan</IonText>
             </IonCol>
             <IonCol className="iconMenu">
               <IonImg src="/assets/icon/form.svg" alt="Document" />

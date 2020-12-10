@@ -18,7 +18,7 @@ const Status: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton icon="chevron-back" />
           </IonButtons>
-          <IonTitle>Status</IonTitle>
+          <IonTitle>Status Permohonan</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>Status</IonContent>

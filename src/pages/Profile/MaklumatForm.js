@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { getToken, getUser, setUserSession } from "../../Utils/Common";
+import { getUser } from "../../Utils/Common";
 import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
 import "./Profile.css";
 import Collapsible from "react-collapsible";
@@ -11,42 +11,50 @@ function MaklumatForm(props) {
   const user = getUser();
 
   // v2/user
+  // START USER PROFILE
+  const [uAkaun, setUakaun] = useState([]); // profilling
+  const [ulistMohon, setUlistMohon] = useState([]); // inboxes
+
+  // SELECTED USER PROFILE
+  // const [suAkaun, setSUakaun] = useState([]); // set profilling;
+  // const [sulistMohon, setSUlistMohon] = useState([]); // set inboxes
+
+  // END USER PROFILE
   useEffect(() => {
     const fUserP = async () => {
-      const resUserP = await axios
-        .post(
-          `https://tekun2.nakmenangtender.com/api/v2/user`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((result) => {
-          console.log("resultUser", result);
-          let resuser = result;
-          if (resuser.dataProfile) {
-            setUserSession("dataProfile", JSON.stringify(resuser));
-            this.setState({ redirectToReferrer: true });
-          }
-          // else alert(result.error);
-        });
+      const resUserP = await axios.post(
+        `https://tekun2.nakmenangtender.com/api/v2/user`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      // SET USER PROFILE
+      setUakaun(resUserP.data.data.profiling); // profilling
+      setUlistMohon(resUserP.data.data.inboxes); // inboxes
     };
     fUserP();
   }, []);
 
-  // <Start> Maklumat Asas
+  // END USER PROFILE
+
+  // /v2/profileFormParam
+  // START MAKLUMAT ASAS
+  // LOOP .map
   const [mkasas, setMkasas] = useState([]);
   const [mkaBank, setMkaBank] = useState([]);
   const [mkaCawangan, setMkaCawangan] = useState([]);
   const [mkaKpemasaran, setMkaKpemasaran] = useState([]);
   const [mkaSktorNiaga, setMkaSektorNiaga] = useState([]);
   const [mkaAktiviti, setMkaAktiviti] = useState([]);
+  // const [mkaUsbank, setmkaUbank] = useState([]);
 
-  // selected Maklumat Asas
+  // SELECTED MAKLUMAT ASAS
+  const [selectedMkaUsbank, setSelectedMkaUbank] = useState([]);
   const [selectMkasas, setSelectMkasas] = useState("");
   const [selectedMkaBank, setSelectedMkaBank] = useState("");
   const [selectedMkaCawangan, setSelectedCawangan] = useState("");
@@ -54,22 +62,36 @@ function MaklumatForm(props) {
   const [selectedMkaSektorNiaga, setSelectedMkaSektorNiaga] = useState("");
   const [selectedMkaAktiviti, setSelectedMkaAktiviti] = useState("");
 
-  // <End>
+  // END MAKLUMAT ASAS
 
-  // <Start>Maklumat Peribadi Pemohon
+  // START MAKLUMAT PRIBADI
+  // LOOP .map
   const [mppsK, setMppsk] = useState([]);
   const [mppsB, setMppsB] = useState([]);
   const [mppsB_Kaum, setMppsB_Kaum] = useState([]);
   const [mppsTp, setMppsTp] = useState([]);
+  const [mppsNegeri, setSNegeri] = useState([]);
+  const [uJantina, setJantina] = useState([]);
+  const [uAgama, setAgama] = useState([]);
 
-  // selected Maklumat Peribadi Pemohon
+  // SELECTED MAKLUMAT PRIBADI
   const [smppsK, setSMppsk] = useState("");
   const [smppsB, setSMppsB] = useState("");
   const [smppsB_Kaum, setSMppsB_Kaum] = useState("");
   const [smppsTp, setSMppsTp] = useState("");
-  // <End>
+  const [sMppsNegeri, setSMppNegeri] = useState("");
+  const [suJantina, setSJantina] = useState([]);
+  const [suAgama, setSAgama] = useState([]);
 
-  // /v2/profileFormParam
+  // START MAKLUMAT PERNIAGAAN
+  // LOOP .map
+  const [mkpp, setMkpp] = useState([]); // STATUS PREMIS PROJEK*
+  const [mkmilikp, setMkmilikp] = useState([]); // PEMILIKAN PERNIAGAAN*
+  // SELECTED MAKLUMAT PERNIAGAAN
+  const [sMkpp, setSMkpp] = useState([]); // SELECT STATUS PREMIS PROJEK*
+  const [smkmilikp, setSmkmilikp] = useState([]); // SELECT PEMILIKAN PERNIAGAAN*
+  // END MAKLUMAT PRIBADI
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.post(
@@ -83,6 +105,7 @@ function MaklumatForm(props) {
           },
         }
       );
+      console.log("profileFormParam", result);
 
       // set Maklumat Asas
       setMkasas(Object.values(result.data.Master_status_perniagaan));
@@ -97,6 +120,13 @@ function MaklumatForm(props) {
       setMppsB(Object.values(result.data.Master_bangsa));
       setMppsB_Kaum(Object.values(result.data.MasterBumiputera));
       setMppsTp(Object.values(result.data.Master_taraf_pendidikan));
+      setSNegeri(Object.values(result.data.MasterState));
+      setJantina(Object.values(result.data.Master_jantina));
+      setAgama(Object.values(result.data.Master_agama));
+
+      // set Maklumat Perniagaan
+      setMkpp(Object.values(result.data.Master_premis_status));
+      setMkmilikp(Object.values(result.data.Master_pemilik_perniagaan));
     };
     fetchData();
   }, []);
@@ -107,6 +137,9 @@ function MaklumatForm(props) {
   }
   function onMkasasBank(event) {
     setSelectedMkaBank(event.target.value);
+  }
+  function onUakaunBank(event) {
+    setSelectedMkaUbank(event.target.value);
   }
   function onCawangan(event) {
     setSelectedCawangan(event.target.value);
@@ -133,6 +166,23 @@ function MaklumatForm(props) {
   }
   function onMppsTp(event) {
     setSMppsTp(event.target.value);
+  }
+  function onMppsNegeri(event) {
+    setSMppNegeri(event.target.value);
+  }
+  function onUjantina(event) {
+    setSJantina(event.target.value);
+  }
+  function onUAgama(event) {
+    setSAgama(event.target.value);
+  }
+
+  // onchange Maklumat Perniagaan
+  function onMkpp(event) {
+    setSMkpp(event.target.value);
+  }
+  function onMkmilikp(event) {
+    setSmkmilikp(event.target.value);
   }
 
   // function handleSubmit(e) {
@@ -167,6 +217,8 @@ function MaklumatForm(props) {
       {console.log("mkaCawangan", mkaCawangan)} */}
       {/* {console.log("mkaSperniagaan", mkaSktorNiaga)} */}
       {/* {console.log("setMkaAktiviti", setMkaAktiviti)} */}
+      {/* {console.log("uAkaun", uAkaun)} */}
+      {console.log("ulistMohon", ulistMohon)}
       <motion.Grid className="grid">
         <form
           // onSubmit={handleSubmit}
@@ -245,7 +297,7 @@ function MaklumatForm(props) {
               fullWidth
               id="NoAkaunAsas"
               label="No Akaun Bank"
-              value={user.no_akaun_asas}
+              value="4444"
             ></TextField>
             <hr />
             <TextField
@@ -293,6 +345,38 @@ function MaklumatForm(props) {
             <TextField
               variant="outlined"
               fullWidth
+              id="uJantina"
+              select
+              label="Jantina"
+              value={suJantina}
+              onChange={onUjantina}
+            >
+              {uJantina.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="Agama"
+              select
+              label="Agama"
+              value={suAgama}
+              onChange={onUAgama}
+            >
+              {uAgama.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
               id="NoKpBaru"
               label="No Kad Pengenalan"
               disabled
@@ -312,8 +396,9 @@ function MaklumatForm(props) {
               fullWidth
               type="number"
               id="Umur"
-              label="Umur"
-              value={(user.umur = 40)}
+              // label="Umur"
+              disabled
+              value={uAkaun.umur}
             />
             <hr />
             <TextField
@@ -386,21 +471,13 @@ function MaklumatForm(props) {
             <TextField
               variant="outlined"
               fullWidth
-              type="number"
+              type="text"
               id="BilanganTanggungan"
               label="Bilangan Tanggungan"
+              value={uAkaun.bil_tanggungan}
             ></TextField>
             <hr />
-            <TextField
-              variant="outlined"
-              fullWidth
-              type="number"
-              id="NoTel"
-              label="No Telefon"
-              disabled
-              value={user.no_tel}
-            />
-            <hr />
+
             <TextField
               variant="outlined"
               fullWidth
@@ -416,16 +493,177 @@ function MaklumatForm(props) {
                 </MenuItem>
               ))}
             </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="Alamat"
+              label="Alamat"
+              disabled
+              value={uAkaun.alamat}
+              // onChange={onAlamat}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="number"
+              id="Poskod"
+              // label="Poskod"
+              disabled
+              value={uAkaun.poskod_pemohon}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="standard-select-currency"
+              select
+              label="Negeri"
+              value={sMppsNegeri}
+              onChange={onMppsNegeri}
+            >
+              {mppsNegeri.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="standard-select-currency"
+              select
+              label="Daerah"
+              value={selectedMkaCawangan}
+              onChange={onCawangan}
+            >
+              {mkaCawangan.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Collapsible>
           <Collapsible trigger="Maklumat Perniagaan" className="iconP3">
-            <p>
-              This is the collapsible content. It can be any element or React
-              component you like.
-            </p>
-            <p>
-              It can even be another Collapsible component. Check out the next
-              section!
-            </p>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="NamaPerniagaan"
+              label="Nama Perniagaan / Syarikat"
+              disabled
+              value={uAkaun.nama_perniagaan}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="TempohPengalamanTahun"
+              label="Tempoh Pengalaman Tahun"
+              disabled
+              value={uAkaun.tempoh_pengalaman_tahun}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="NoTelPerniagaan"
+              label="No Tel Perniagaan"
+              disabled
+              value={uAkaun.no_tel_hp}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="StatusPremisProjek"
+              select
+              label="Status Premis Projek"
+              value={sMkpp}
+              onChange={onMkpp}
+            >
+              {mkpp.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="AngaranPendapatanKasar"
+              label="Angaran Pendapatan Kasar ( Sebulan )"
+              disabled
+              value={uAkaun.anggaran_pendapatan_kasar}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="AlamatPerniagaan"
+              label="Alamat Perniagaan"
+              disabled
+              value={uAkaun.alamat_perniagaan}
+            />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="AlamatPerniagaan"
+              // label="Alamat Perniagaan"
+              disabled
+              value={uAkaun.alamat2_perniagaan}
+            />
+            <TextField
+              variant="outlined"
+              fullWidth
+              type="text"
+              id="AlamatPerniagaan"
+              // label="Alamat Perniagaan"
+              disabled
+              value={uAkaun.poskod_perniagaan}
+            />
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="standard-select-currency"
+              select
+              label="Negeri"
+              value={sMppsNegeri}
+              onChange={onMppsNegeri}
+            >
+              {mppsNegeri.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="standard-select-currency"
+              select
+              label="Pemilikan Tunggal"
+              value={smkmilikp}
+              onChange={onMkmilikp}
+            >
+              {mkmilikp.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Collapsible>
           <IonButton
             type="submit"

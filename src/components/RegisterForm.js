@@ -14,7 +14,7 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      no_kp_baru: "",
       password: "",
       email: "",
       name: "",
@@ -26,12 +26,15 @@ class RegisterForm extends Component {
 
   signup() {
     if (
-      this.state.username &&
+      this.state.no_kp_baru &&
       this.state.password &&
       this.state.email &&
       this.state.name
     ) {
-      PostData("/api/registerakaun", this.state).then((result) => {
+      PostData(
+        "https://tekun2.nakmenangtender.com/api/v2/register",
+        this.state
+      ).then((result) => {
         let responseJson = result;
         if (responseJson.userData) {
           sessionStorage.setItem("userData", JSON.stringify(responseJson));
@@ -57,7 +60,7 @@ class RegisterForm extends Component {
             transition={{ duration: 0.9 }}
           />
           <hr />
-          <img src="./assets/img/people.svg" alt="people" />
+          {/* <img src="./assets/img/people.svg" alt="people" /> */}
         </div>
         <Grid className="grid">
           <div className="LoginContainer">
@@ -68,7 +71,7 @@ class RegisterForm extends Component {
                 required
                 fullWidth
                 label="No Kad Pengenalan"
-                name="username"
+                name="no_kp_baru"
                 autoComplete="No Kad Pengenalan"
                 type="text"
                 placeholder="Username"
