@@ -1,31 +1,31 @@
 // return the user data from the session storage
 export const getUser = () => {
-  const userStr = sessionStorage.getItem("user_info");
+  const userStr = localStorage.getItem("user_info");
   if (userStr) return JSON.parse(userStr);
   else return null;
 };
 
 export const getUserProfile = () => {
-  const userProfile = sessionStorage.getItem("dataProfile");
+  const userProfile = localStorage.getItem("dataProfile");
   if (userProfile) return JSON.parse(userProfile);
   else return null;
 };
 
 // return the token from the session storage
 export const getToken = () => {
-  return sessionStorage.getItem("token") || null;
+  return localStorage.getItem("token") || null;
 };
 
 // remove the token and user from the session storage
 export const removeUserSession = () => {
-  sessionStorage.removeItem("token");
-  sessionStorage.removeItem("user_info");
-  sessionStorage.removeItem("dataProfile");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_info");
+  localStorage.removeItem("dataProfile");
 };
 
 // set the token and user from the session storage
 export const setUserSession = (token, user_info, dataProfile) => {
-  sessionStorage.setItem("token", token);
-  sessionStorage.setItem("user_info", JSON.stringify(user_info));
-  sessionStorage.setItem("dataProfile", JSON.stringify(dataProfile));
+  localStorage.setItem("token", token);
+  localStorage.setItem("user_info", JSON.stringify(user_info));
+  localStorage.setItem("dataProfile", JSON.stringify(dataProfile));
 };

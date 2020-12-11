@@ -27,7 +27,7 @@ function MaklumatForm(props) {
         {},
         {
           headers: {
-            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -70,6 +70,7 @@ function MaklumatForm(props) {
   const [mppsB, setMppsB] = useState([]);
   const [mppsB_Kaum, setMppsB_Kaum] = useState([]);
   const [mppsTp, setMppsTp] = useState([]);
+  const [mppsD, setMppsD] = useState([]);
   const [mppsNegeri, setSNegeri] = useState([]);
   const [uJantina, setJantina] = useState([]);
   const [uAgama, setAgama] = useState([]);
@@ -79,6 +80,7 @@ function MaklumatForm(props) {
   const [smppsB, setSMppsB] = useState("");
   const [smppsB_Kaum, setSMppsB_Kaum] = useState("");
   const [smppsTp, setSMppsTp] = useState("");
+  const [smppsD, setSMppsD] = useState("");
   const [sMppsNegeri, setSMppNegeri] = useState("");
   const [suJantina, setSJantina] = useState([]);
   const [suAgama, setSAgama] = useState([]);
@@ -99,7 +101,7 @@ function MaklumatForm(props) {
         {},
         {
           headers: {
-            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -120,6 +122,7 @@ function MaklumatForm(props) {
       setMppsB(Object.values(result.data.Master_bangsa));
       setMppsB_Kaum(Object.values(result.data.MasterBumiputera));
       setMppsTp(Object.values(result.data.Master_taraf_pendidikan));
+      setMppsD(Object.values(result.data.Master_pendidikan));
       setSNegeri(Object.values(result.data.MasterState));
       setJantina(Object.values(result.data.Master_jantina));
       setAgama(Object.values(result.data.Master_agama));
@@ -166,6 +169,9 @@ function MaklumatForm(props) {
   }
   function onMppsTp(event) {
     setSMppsTp(event.target.value);
+  }
+  function onMppsD(event) {
+    setSMppsD(event.target.value);
   }
   function onMppsNegeri(event) {
     setSMppNegeri(event.target.value);
@@ -488,6 +494,23 @@ function MaklumatForm(props) {
               onChange={onMppsTp}
             >
               {mppsTp.map((choice, id) => (
+                <MenuItem key={id} value={choice}>
+                  {choice.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <hr />
+
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="NamaIPT"
+              select
+              label="Nama IPT"
+              value={smppsD}
+              onChange={onMppsD}
+            >
+              {mppsD.map((choice, id) => (
                 <MenuItem key={id} value={choice}>
                   {choice.name}
                 </MenuItem>

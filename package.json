@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^2.4.4",
+    "@capacitor/core": "2.4.4",
     "@ionic/react": "^5.0.7",
     "@ionic/react-router": "^5.0.7",
     "@material-ui/core": "^4.11.0",
@@ -54,7 +56,9 @@
   },
   "description": "An Ionic project",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@capacitor/cli": "2.4.4"
+  },
   "keywords": [
     "ionic",
     "react"

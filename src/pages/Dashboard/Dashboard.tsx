@@ -92,26 +92,7 @@ const Dashboard: React.FC = (props) => {
             </IonCol>
           </IonRow>
         </IonCardContent>
-        {/* <IonCardContent>
-          <IonRow className="notifikasi">
-            <IonCol>
-              <IonIcon color="success" icon={notificationsOutline} />
-              <IonText>PENGESAHAN PENERIMA PEMOHONAN</IonText>
-            </IonCol>
-          </IonRow>
-          <IonRow className="notifikasi">
-            <IonCol>
-              <IonIcon color="success" icon={notificationsOutline} />
-              <IonText>PERMOHONAN TELAH DIHANTAR</IonText>
-            </IonCol>
-          </IonRow>
-          <IonRow className="notifikasi">
-            <IonCol>
-              <IonIcon color="success" icon={notificationsOutline} />
-              <IonText>PENDAFTARAN PENGGUNA BERJAYA</IonText>
-            </IonCol>
-          </IonRow>
-        </IonCardContent> */}
+
         <IonGrid>
           <IonRow className="main">
             <IonTitle>

@@ -50,15 +50,15 @@ function LoginForm(props) {
         setLoading(false);
         // ionLogged;
         setUserSession(response.data.user_info.token, response.data.user_info);
-        console.log("setUserSession", window.sessionStorage.getItem("token"));
+        console.log("setUserSession", window.localStorage.getItem("token"));
         history.push("/Dashboard");
       })
       .catch((error) => {
         console.log("error", error);
         setLoading(false);
-        // if (error?.response?.status === 401)
-        //   ionAlert(error.response.data.message);
-        // else ionAlert("Something went wrong. Please try again later.");
+        if (error?.response?.status === 401)
+          setError(error.response.data.message);
+        else setError("Something went wrong. Please try again later.");
       });
   };
 

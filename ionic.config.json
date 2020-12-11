@@ -1,5 +1,7 @@
 {
   "name": "tekunapps-ir",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }

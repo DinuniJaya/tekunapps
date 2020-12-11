@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { PostData } from "../services/PostData";
+import axios from "axios";
+import { setUserSession } from "../Utils/Common";
 
 import { motion } from "framer-motion";
 import Button from "@material-ui/core/Button";
@@ -14,10 +15,11 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      no_kp_baru: "",
+      icno: "",
       password: "",
       email: "",
       name: "",
+      notel: "",
       redirectToReferrer: false,
     };
     this.signup = this.signup.bind(this);
@@ -26,28 +28,28 @@ class RegisterForm extends Component {
 
   signup() {
     if (
-      this.state.no_kp_baru &&
+      this.state.icno &&
       this.state.password &&
       this.state.email &&
-      this.state.name
+      this.state.name &&
+      this.state.notel
     ) {
-      PostData(
-        "https://tekun2.nakmenangtender.com/api/v2/register",
-        this.state
-      ).then((result) => {
-        let responseJson = result;
-        if (responseJson.userData) {
-          sessionStorage.setItem("userData", JSON.stringify(responseJson));
-          this.setState({ redirectToReferrer: true });
-        } else alert(result.error);
-      });
+      axios
+        .post("https://tekun2.nakmenangtender.com/api/v2/register", this.state)
+        .then((result) => {
+          let responseJson = result;
+          if (responseJson.userData) {
+            localStorage.setItem("userData", JSON.stringify(responseJson));
+            this.setState({ redirectToReferrer: true });
+          } else alert(result.error);
+        });
     }
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
   render() {
-    if (this.state.redirectToReferrer || sessionStorage.getItem("userData")) {
+    if (this.state.redirectToReferrer || localStorage.getItem("userData")) {
       return <Redirect to={"/Dashboard"} />;
     }
     return (
@@ -71,10 +73,10 @@ class RegisterForm extends Component {
                 required
                 fullWidth
                 label="No Kad Pengenalan"
-                name="no_kp_baru"
+                name="icno"
                 autoComplete="No Kad Pengenalan"
                 type="text"
-                placeholder="Username"
+                placeholder="No Kad Pengenalan"
                 onChange={this.onChange}
               />
               <TextField
@@ -106,11 +108,12 @@ class RegisterForm extends Component {
                 margin="normal"
                 required
                 fullWidth
-                name="no telefon"
+                name="notel"
                 label="No Telefon"
                 type="text"
                 placeholder="6xxxxxxxxxxx"
                 autoComplete="6xxxxxxxxxxx"
+                onChange={this.onChange}
               />
               <TextField
                 variant="outlined"
