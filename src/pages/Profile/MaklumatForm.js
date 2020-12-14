@@ -13,11 +13,14 @@ function MaklumatForm(props) {
   // v2/user
   // START USER PROFILE
   const [uAkaun, setUakaun] = useState([]); // profilling
+  const [nobankasas, setNobankasas] = useState([]); // no_akaun_asas
   const [ulistMohon, setUlistMohon] = useState([]); // inboxes
+  const [Bankid, setBankid] = useState([]); // inboxes
 
   // SELECTED USER PROFILE
   // const [suAkaun, setSUakaun] = useState([]); // set profilling;
   // const [sulistMohon, setSUlistMohon] = useState([]); // set inboxes
+  const [snobankasas, setSnoAkaunAsas] = useState([]); // set inboxes
 
   // END USER PROFILE
   useEffect(() => {
@@ -35,7 +38,9 @@ function MaklumatForm(props) {
       );
       // SET USER PROFILE
       setUakaun(resUserP.data.data.profiling); // profilling
+      setNobankasas(resUserP.data.data.profiling.no_akaun_asas); // no_akaun_asas
       setUlistMohon(resUserP.data.data.inboxes); // inboxes
+      setBankid(resUserP.data.data.profiling.akaun_bank_id); // Bankid
     };
     fUserP();
   }, []);
@@ -144,6 +149,9 @@ function MaklumatForm(props) {
   function onUakaunBank(event) {
     setSelectedMkaUbank(event.target.value);
   }
+  function onNoAkaunAsas(event) {
+    setSnoAkaunAsas(event.target.value);
+  }
   function onCawangan(event) {
     setSelectedCawangan(event.target.value);
   }
@@ -218,13 +226,15 @@ function MaklumatForm(props) {
   // console.log("handleSubmit", handleSubmit);
   return (
     <>
-      {/* {console.log("mkasas", mkasas)}
-      {console.log("mkaBank", mkaBank)}
-      {console.log("mkaCawangan", mkaCawangan)} */}
+      {/* {console.log("mkasas", mkasas)} */}
+      {/* {console.log("mkaBank", mkaBank)} */}
+      {/* {console.log("Bankid", Bankid)} */}
+      {/* {console.log("nobankasas", nobankasas)} */}
+      {/* {console.log("mkaCawangan", mkaCawangan)} */}
       {/* {console.log("mkaSperniagaan", mkaSktorNiaga)} */}
       {/* {console.log("setMkaAktiviti", setMkaAktiviti)} */}
       {/* {console.log("uAkaun", uAkaun)} */}
-      {console.log("ulistMohon", ulistMohon)}
+      {/* {console.log("ulistMohon", ulistMohon)} */}
       <motion.Grid className="grid">
         <form
           // onSubmit={handleSubmit}
@@ -303,7 +313,8 @@ function MaklumatForm(props) {
               fullWidth
               id="NoAkaunAsas"
               label="No Akaun Bank"
-              value="4444"
+              value={nobankasas}
+              disabled
             ></TextField>
             <hr />
             <TextField

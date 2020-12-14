@@ -1,9 +1,12 @@
 package io.ionic.starter;
 
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.SslErrorHandler;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
+import com.getcapacitor.plugin.WebView;
 
 import java.util.ArrayList;
 

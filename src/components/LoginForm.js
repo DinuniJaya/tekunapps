@@ -50,13 +50,13 @@ function LoginForm(props) {
         setLoading(false);
         // ionLogged;
         setUserSession(response.data.user_info.token, response.data.user_info);
-        console.log("setUserSession", window.localStorage.getItem("token"));
+        // console.log("setUserSession", setUserSession.getItem("token"));
         history.push("/Dashboard");
       })
       .catch((error) => {
         console.log("error", error);
         setLoading(false);
-        if (error?.response?.status === 401)
+        if (error.response?.status === 401)
           setError(error.response.data.message);
         else setError("Something went wrong. Please try again later.");
       });
@@ -87,7 +87,7 @@ function LoginForm(props) {
               fullWidth
               id="no_kad_pengenalan"
               label="No Kad Pengenalan"
-              name="username"
+              // name="username"
               type="text"
               autoComplete="No Kad Pengenalan"
               {...username}
@@ -98,10 +98,9 @@ function LoginForm(props) {
               required
               fullWidth
               id="password"
-              name="kata laluan"
               label="Kata Laluan"
               type="password"
-              name="password"
+              // name="password"
               {...password}
               autoComplete="current-password"
             />
@@ -115,9 +114,9 @@ function LoginForm(props) {
               color="primary"
               className="submit"
               type="button"
-              value={loading ? "Loading..." : "Login"}
+              // value={loading ? "Loading..." : "Login"}
               onClick={handleLogin}
-              disabled={loading}
+              // disabled={loading}
             >
               Log Masuk
             </Button>

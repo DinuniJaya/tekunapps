@@ -29,7 +29,7 @@ class StatusPmohon extends React.Component {
     uListMohon: [],
     uL_TarikhSubmit: [],
     uL_Status: [],
-    isLoading: true,
+    // isLoading: true,
     errors: null,
   };
 
@@ -42,7 +42,7 @@ class StatusPmohon extends React.Component {
         uListMohon: response.data.data[0].permohonan_no,
         uL_TarikhSubmit: response.data.data[0].created_at,
         uL_Status: response.data.data[0].status.name,
-        isLoading: false,
+        // isLoading: false,
       });
     } catch (error) {
       this.setState({ error, isLoading: false });
