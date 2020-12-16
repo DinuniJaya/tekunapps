@@ -37,7 +37,7 @@ function MapCawangan() {
   const state = {
     lat: "3.1610644999999997",
     lng: "101.7182277",
-    zoom: 20,
+    zoom: 1,
   };
 
   const initialPosition = [state.lat, state.lng];

@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { getUser, removeUserSession } from "../../Utils/Common";
+import { getUser } from "../../Utils/Common";
 import {
   IonContent,
   IonHeader,
@@ -23,10 +23,10 @@ const Profile: React.FC = (props) => {
   let purl = user.picture_url ? `assets/img/user.jpg` : `assets/img/user.jpg`;
 
   // handle click event of logout button
-  const handleLogout = () => {
-    removeUserSession();
-    history.push("/login");
-  };
+  // const handleLogout = () => {
+  //   removeUserSession();
+  //   history.push("./Login");
+  // };
 
   return (
     <>
@@ -49,14 +49,14 @@ const Profile: React.FC = (props) => {
         </IonCardContent> */}
         <MaklumatForm />
 
-        <IonButton
+        {/* <IonButton
           expand="block"
           type="button"
           onClick={handleLogout}
           className="blue ion-padding"
         >
           Log Keluar
-        </IonButton>
+        </IonButton> */}
         {/* <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton>
             <img src="./assets/icon/edit.svg" alt="edit" />

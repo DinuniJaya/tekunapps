@@ -9,6 +9,8 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+// import Maptekun from "./maptekun";
+import MapCawangan from "./MapCawangan.js";
 
 const Cawangan: React.FC = () => {
   return (
@@ -21,7 +23,10 @@ const Cawangan: React.FC = () => {
           <IonTitle>Cawangan</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>Cawangan</IonContent>
+      <IonContent>
+        <MapCawangan />
+        {/* <Maptekun /> */}
+      </IonContent>
     </IonPage>
   );
 };

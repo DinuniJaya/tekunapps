@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { getUser } from "../../Utils/Common";
-import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
-import "./Profile.css";
 import Collapsible from "react-collapsible";
+import { TextField, MenuItem, FormHelperText } from "@material-ui/core";
+import { getUser, removeUserSession } from "../../Utils/Common";
+
+import { useHistory } from "react-router";
 import { IonButton } from "@ionic/react";
 
+import "./Profile.css";
 function MaklumatForm(props) {
+  const history = useHistory();
   const user = getUser();
+
+  // handle click event of logout button
+  const handleLogout = () => {
+    removeUserSession();
+    history.push("./Login");
+  };
 
   // v2/user
   // START USER PROFILE
@@ -404,8 +413,9 @@ function MaklumatForm(props) {
               variant="outlined"
               fullWidth
               id="NoKpLama"
+              type="text"
               label="No Kad Pengenalan Lama"
-              value={user.no_kp_lama}
+              value=""
             />
             <hr />
             <TextField
@@ -413,7 +423,7 @@ function MaklumatForm(props) {
               fullWidth
               type="number"
               id="Umur"
-              // label="Umur"
+              label="Umur"
               disabled
               value={uAkaun.umur}
             />
@@ -706,6 +716,14 @@ function MaklumatForm(props) {
             color="success ion-padding"
           >
             Simpan
+          </IonButton>
+          <IonButton
+            expand="block"
+            type="button"
+            onClick={handleLogout}
+            className="blue ion-padding"
+          >
+            Log Keluar
           </IonButton>
         </form>
       </motion.Grid>

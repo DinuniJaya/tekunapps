@@ -12,7 +12,7 @@ import {
   IonAvatar,
   IonIcon,
 } from "@ionic/react";
-
+import { getUser } from "../../Utils/Common";
 const api = axios.create({
   baseURL: "https://tekun2.nakmenangtender.com/api/v2/permohonanList",
 
@@ -22,7 +22,7 @@ const api = axios.create({
     Accept: "application/json",
   },
 });
-
+const user = getUser();
 class StatusPmohon extends React.Component {
   state = {
     alldata: [],
@@ -66,10 +66,12 @@ class StatusPmohon extends React.Component {
               </IonAvatar>
               <IonLabel>
                 <p>
-                  <b>NAMA : </b>Mohd Mahyudin Bin Ayub
+                  <b>NAMA : </b>
+                  {user.name}
                 </p>
                 <p>
-                  <b>No.KP : </b>890218126501
+                  <b>No.KP : </b>
+                  {user.no_kp_baru}
                 </p>
                 <p>
                   <b>SKIM : </b>SKIM PINJAMAN SEDERHANA

@@ -56,7 +56,7 @@ const App: React.FC = (props) => {
           <PublicRoute path="/Register" component={Register} exact={true} />
           <Route path="/Status" component={Status} exact={true} />
           <Route path="/Cawangan" component={Cawangan} exact={true} />
-          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route exact path="/" render={() => <Redirect to="/Home" />} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
