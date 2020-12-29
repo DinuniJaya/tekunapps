@@ -129,7 +129,7 @@ function MaklumatForm(props) {
       setMkaCawangan(Object.values(result.data.Master_cawangan));
       setMkaKpemasaran(Object.values(result.data.Master_kaedah_pemasaran));
       setMkaSektorNiaga(Object.values(result.data.Master_sektor_perniagaan));
-      setMkaAktiviti(Object.values(result.data.Master_sektor_perniagaan));
+      // setMkaAktiviti(Object.values(result.data.Master_sektor_perniagaan));
 
       // set Maklumat Peribadi
       setMppsk(Object.values(result.data.Master_status_kediaman));
@@ -169,6 +169,9 @@ function MaklumatForm(props) {
   }
   function onMkaSniaga(event) {
     setSelectedMkaSektorNiaga(event.target.value);
+    console.log(event.target.value);
+    console.log("activityList", mkaAktiviti);
+    setMkaAktiviti(event.target.value.details);
   }
   function onMkaAktiviti(event) {
     setSelectedMkaAktiviti(event.target.value);
@@ -351,9 +354,9 @@ function MaklumatForm(props) {
               value={selectedMkaAktiviti}
               onChange={onMkaAktiviti}
             >
-              {mkaAktiviti.map((choice, id) => (
-                <MenuItem key={id} value={choice}>
-                  {choice.details[0].desc}
+              {mkaAktiviti.map(({ activity_code, desc }, index) => (
+                <MenuItem key={activity_code} value={desc}>
+                  {desc}
                 </MenuItem>
               ))}
             </TextField>
