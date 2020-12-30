@@ -15,8 +15,7 @@ function MaklumatForm(props) {
 
   // handle click event of logout button
   const handleLogout = () => {
-    removeUserSession();
-    history.push("./Login");
+    history.push("/logout");
   };
 
   // v2/user
@@ -69,7 +68,9 @@ function MaklumatForm(props) {
 
   // SELECTED MAKLUMAT ASAS
   const [selectedMkaUsbank, setSelectedMkaUbank] = useState([]);
-  const [selectMkasas, setSelectMkasas] = useState("");
+  const [selectMkaStatusPerniagaan, setSelectMkaStatusPerniagaan] = useState(
+    ""
+  );
   const [selectedMkaBank, setSelectedMkaBank] = useState("");
   const [selectedMkaCawangan, setSelectedCawangan] = useState("");
   const [selectedMkaKpemasaran, setSelectedMkaKpemasaran] = useState("");
@@ -150,7 +151,7 @@ function MaklumatForm(props) {
 
   // onchange Maklumat Asas
   function onMkasas(event) {
-    setSelectMkasas(event.target.value);
+    setSelectMkaStatusPerniagaan(event.target.value);
   }
   function onMkasasBank(event) {
     setSelectedMkaBank(event.target.value);
@@ -211,30 +212,28 @@ function MaklumatForm(props) {
     setSmkmilikp(event.target.value);
   }
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   axios({
-  //     method: "POST",
-  //     url: "https://tekun2.nakmenangtender.com/api/v2/profileFormParam",
-  //     data: setSelectMkasas,
-  //     setSelectedMkaBank,
-  //     setSelectedCawangan,
-  //     setSelectedMkaKpemasaran,
-  //     setSelectedMkaSektorNiaga,
-  //     setSelectedMkaAktiviti,
-  //     setSMppsk,
-  //     setSMppsB,
-  //     setSMppsB_Kaum,
-  //     setSMppsTp,
-  //   }).then((response) => {
-  //     if (response.data.status === "success") {
-  //       alert("Message Sent.");
-  //       // this.resetForm();
-  //     } else if (response.data.status === "fail") {
-  //       alert("Message failed to send.");
-  //     }
-  //   });
-  // }
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios({
+      method: "POST",
+      url: "https://tekun2.nakmenangtender.com/api/v2/profileFormParam",
+      data: {
+        // tak tahu key apa so letak camni dulu
+        Master_status_perniagaan: selectMkaStatusPerniagaan,
+        Master_bank: selectedMkaBank,
+        Master_kaedah_pemasaran: selectedMkaKpemasaran,
+        Master_sektor_niaga: selectedMkaSektorNiaga,
+        Master_aktiviti: selectedMkaAktiviti,
+      },
+    }).then((response) => {
+      if (response.data.status === "success") {
+        alert("Message Sent.");
+        // this.resetForm();
+      } else if (response.data.status === "fail") {
+        alert("Message failed to send.");
+      }
+    });
+  }
   // console.log("handleSubmit", handleSubmit);
   return (
     <>
@@ -261,7 +260,7 @@ function MaklumatForm(props) {
               fullWidth
               select
               label="Status Perniagaan"
-              value={selectMkasas}
+              value={selectMkaStatusPerniagaan}
               onChange={onMkasas}
             >
               {mkasas.map((choice, id) => (

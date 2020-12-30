@@ -51,7 +51,8 @@ function LoginForm(props) {
         // ionLogged;
         setUserSession(response.data.user_info.token, response.data.user_info);
         // console.log("setUserSession", setUserSession.getItem("token"));
-        history.push("/Dashboard");
+
+        history.replace("/dashboard");
       })
       .catch((error) => {
         console.log("error", error);
@@ -134,7 +135,7 @@ function LoginForm(props) {
             </Grid>
           </form>
         </div>
-        <IonButton className="green" onClick={() => history.push("./Register")}>
+        <IonButton className="green" onClick={() => history.push("/register")}>
           Daftar
         </IonButton>
       </Grid>

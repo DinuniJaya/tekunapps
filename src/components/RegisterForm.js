@@ -50,7 +50,7 @@ class RegisterForm extends Component {
   }
   render() {
     if (this.state.redirectToReferrer || localStorage.getItem("userData")) {
-      return <Redirect to={"/Dashboard"} />;
+      return <Redirect to={"/dashboard"} />;
     }
     return (
       <div className="container">
@@ -143,7 +143,7 @@ class RegisterForm extends Component {
             </form>
           </div>
           <Grid>
-            <Button href="/Login" className="button">
+            <Button href="/login" className="button">
               {"Login"}
             </Button>
           </Grid>

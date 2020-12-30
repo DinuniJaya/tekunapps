@@ -19,16 +19,17 @@ function PrivateRoute({ component: Component, ...rest }) {
           <IonPage>
             <Component {...props} />
             <IonTabBar slot="bottom">
-              <IonTabButton tab="Dashboard" href="/Dashboard">
+              <IonTabButton tab="dashboard" href="/dashboard">
                 <img src="./assets/icon/dashboard.svg" alt="dashboard" />
                 <IonLabel>Home</IonLabel>
               </IonTabButton>
-              <IonTabButton tab="Notification" href="/Notification">
+              <IonTabButton tab="notification" href="/notification">
                 <img src="./assets/icon/notification.svg" alt="notification" />
                 <IonLabel>Notifikasi</IonLabel>
                 <IonBadge color="success">3</IonBadge>
               </IonTabButton>
-              <IonTabButton tab="Profile" href="/Profile">
+
+              <IonTabButton tab="profile" href="/profile">
                 <img src="./assets/icon/people.svg" alt="people" />
                 <IonLabel>Profile</IonLabel>
               </IonTabButton>
@@ -37,7 +38,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         ) : (
           <Redirect
             // to="/Login"
-            to={{ pathname: "/Login", state: { from: props.location } }}
+            to={{ pathname: "/login" }}
           />
         )
       }

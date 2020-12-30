@@ -29,7 +29,7 @@ const Onboard: React.FC = () => {
           yang sedia ada.
         </p>
 
-        <IonButton className="onstart" onClick={() => history.push("./Login")}>
+        <IonButton className="onstart" onClick={() => history.push("/login")}>
           Mula
         </IonButton>
         <div className="onboardbg">

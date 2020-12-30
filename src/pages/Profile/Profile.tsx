@@ -17,7 +17,7 @@ import MaklumatForm from "./MaklumatForm";
 
 const Profile: React.FC = (props) => {
   const user = getUser();
-  const history = useHistory();
+  // const history = useHistory();
   // console.log(getUser);
 
   let purl = user.picture_url ? `assets/img/user.jpg` : `assets/img/user.jpg`;
@@ -25,9 +25,9 @@ const Profile: React.FC = (props) => {
   // handle click event of logout button
   // const handleLogout = () => {
   //   removeUserSession();
-  //   history.push("./Login");
+  //   history.push("./login");
   // };
-
+  console.log("props", props);
   return (
     <>
       <IonHeader>

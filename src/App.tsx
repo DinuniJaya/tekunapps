@@ -38,25 +38,33 @@ import Notification from "./pages/Notification/Notification";
 import Status from "./pages/Status/Status";
 
 import Cawangan from "./pages/Cawangan/Cawangan";
+import RedirectToLogin from "./components/RedirectToLogin";
+import { removeUserSession } from "./Utils/Common";
 
 const App: React.FC = (props) => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet>
-          <PrivateRoute path="/dashboard" component={Dashboard} />
+        <IonRouterOutlet id="main">
+          <PrivateRoute path="/dashboard" component={Dashboard} exact={true} />
           <PrivateRoute
-            path="/Notification"
+            path="/notification"
             component={Notification}
             exact={true}
           />
-          <PrivateRoute path="/Profile" component={Profile} exact={true} />
-          <PublicRoute path="/login" component={Login} />
-          <PublicRoute path="/Home" component={Home} exact={true} />
-          <PublicRoute path="/Register" component={Register} exact={true} />
-          <Route path="/Status" component={Status} exact={true} />
-          <Route path="/Cawangan" component={Cawangan} exact={true} />
-          <Route exact path="/" render={() => <Redirect to="/Home" />} />
+          <PrivateRoute path="/profile" component={Profile} exact={true} />
+          <PublicRoute path="/login" component={Login} exact={true} />
+          <PublicRoute path="/home" component={Home} exact={true} />
+          <PublicRoute path="/register" component={Register} exact={true} />
+          <Route path="/status" component={Status} exact={true} />
+          <Route path="/cawangan" component={Cawangan} exact={true} />
+          <Redirect exact from="/" to="/home" />
+          <Route
+            path="/logout"
+            render={() => {
+              return <RedirectToLogin removeUserSession={removeUserSession} />;
+            }}
+          />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

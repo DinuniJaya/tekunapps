@@ -36,10 +36,10 @@ const Dashboard: React.FC = (props) => {
   const user = getUser();
   let history = useHistory();
   function clickStatus() {
-    history.push("/Status");
+    history.push("/status");
   }
   function clickCawangan() {
-    history.push("/Cawangan");
+    history.push("/cawangan");
   }
 
   return (
