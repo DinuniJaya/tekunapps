@@ -1,5 +1,5 @@
 export function PostData(type, user_info) {
-  let BaseURL = "https://tekun2.nakmenangtender.com/api/v2/";
+  let BaseURL = "https://tekunfin.tekun.gov.my/staging/api/v2/";
   return new Promise((resolve, reject) => {
     fetch(BaseURL + type, {
       method: "POST",

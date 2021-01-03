@@ -112,7 +112,7 @@ function MaklumatForm(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.post(
-        `https://tekun2.nakmenangtender.com/api/v2/profileFormParam`,
+        `https://tekunfin.tekun.gov.my/staging/api/v2/profileFormParam`,
         {},
         {
           headers: {
@@ -146,6 +146,7 @@ function MaklumatForm(props) {
       setMkpp(Object.values(result.data.Master_premis_status));
       setMkmilikp(Object.values(result.data.Master_pemilik_perniagaan));
     };
+
     fetchData();
   }, []);
 
@@ -214,16 +215,23 @@ function MaklumatForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const formdata = new FormData();
+
+    // formdata.append("status_perniagaan_asas", "1");
+    formdata.append("nama_bank_asas", selectedMkaBank);
+    formdata.append("cawangan_asas", selectedMkaCawangan);
+    formdata.append("kaedah_pemasaran_asas", selectedMkaKpemasaran);
+    formdata.append("sektor_perniagaan_id", selectedMkaSektorNiaga);
+    formdata.append("sektor_perniagaan_detail_id", selectedMkaAktiviti);
+
     axios({
       method: "POST",
-      url: "https://tekun2.nakmenangtender.com/api/v2/profileFormParam",
-      data: {
-        // tak tahu key apa so letak camni dulu
-        Master_status_perniagaan: selectMkaStatusPerniagaan,
-        Master_bank: selectedMkaBank,
-        Master_kaedah_pemasaran: selectedMkaKpemasaran,
-        Master_sektor_niaga: selectedMkaSektorNiaga,
-        Master_aktiviti: selectedMkaAktiviti,
+      url: "https://tekunfin.tekun.gov.my/staging/api/v2/profileFormSave",
+      data: formdata,
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
     }).then((response) => {
       if (response.data.status === "success") {
@@ -247,11 +255,7 @@ function MaklumatForm(props) {
       {/* {console.log("uAkaun", uAkaun)} */}
       {/* {console.log("ulistMohon", ulistMohon)} */}
       <motion.Grid className="grid">
-        <form
-          // onSubmit={handleSubmit}
-          className="form"
-          noValidate
-        >
+        <form onSubmit={handleSubmit} className="form" noValidate id="profile">
           <Collapsible trigger="Maklumat Asas" className="iconP1">
             <TextField
               initial={{ opacity: 0 }}
@@ -714,8 +718,8 @@ function MaklumatForm(props) {
           <IonButton
             type="submit"
             expand="block"
-            type="button"
             color="success ion-padding"
+            form="profile"
           >
             Simpan
           </IonButton>
