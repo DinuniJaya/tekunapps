@@ -56,8 +56,8 @@ const App: React.FC = (props) => {
           <PublicRoute path="/login" component={Login} exact={true} />
           <PublicRoute path="/home" component={Home} exact={true} />
           <PublicRoute path="/register" component={Register} exact={true} />
-          <Route path="/status" component={Status} exact={true} />
-          <Route path="/map" component={Map} exact={true} />
+          <PrivateRoute path="/status" component={Status} exact={true} />
+          <PrivateRoute path="/map" component={Map} exact={true} />
           <Redirect exact from="/" to="/home" />
           <Route
             path="/logout"

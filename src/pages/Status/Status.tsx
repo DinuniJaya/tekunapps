@@ -26,7 +26,7 @@ import StatusPmohon from "./StatusPmohon";
 const Status: React.FC = () => {
   const [notify, setNotify] = useState(false);
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -60,7 +60,7 @@ const Status: React.FC = () => {
           </IonModal>
         </IonCardContent>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 

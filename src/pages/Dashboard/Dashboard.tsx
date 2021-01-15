@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getUser } from "../../Utils/Common";
 import {
@@ -16,6 +16,7 @@ import {
   IonCardContent,
   IonGrid,
   IonIcon,
+  NavContext,
 } from "@ionic/react";
 
 import "./Dashboard.css";
@@ -35,11 +36,14 @@ const slideOpts = {
 const Dashboard: React.FC = (props) => {
   const user = getUser();
   let history = useHistory();
+  const { navigate } = useContext(NavContext);
   function clickStatus() {
-    history.push("/status");
+    // history.push("/status");
+    navigate('/status', 'forward');
   }
   function clickCawangan() {
-    history.push("/map");
+    // history.push("/map");
+    navigate('/map', 'forward');
   }
 
   return (
