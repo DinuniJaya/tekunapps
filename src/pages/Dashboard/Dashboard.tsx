@@ -39,7 +39,7 @@ const Dashboard: React.FC = (props) => {
     history.push("/status");
   }
   function clickCawangan() {
-    history.push("/cawangan");
+    history.push("/map");
   }
 
   return (

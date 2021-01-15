@@ -22,20 +22,6 @@ function LoginForm(props) {
 
   const history = useHistory();
 
-  // console.log("props", history);
-
-  // // handle button click of login form
-  // function ionAlert() {
-  //   const alert = document.createElement("ion-alert");
-  //   alert.header = "Server Bussy";
-  //   // alert.subHeader = "Server Error 500";
-  //   alert.message =
-  //     "Server are too busy at the moment.. please try again later";
-  //   alert.buttons = ["OK"];
-
-  //   document.body.appendChild(alert);
-  //   return alert.present();
-  // }
   const handleLogin = () => {
     // ionAlert(null);
     setLoading(true);
@@ -62,10 +48,6 @@ function LoginForm(props) {
         else setError("Something went wrong. Please try again later.");
       });
   };
-
-  // const handleChange = () => {
-  //   alert("handlechange !");
-  // };
 
   return (
     <div className="container">

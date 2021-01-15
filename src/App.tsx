@@ -37,9 +37,9 @@ import Profile from "./pages/Profile/Profile";
 import Notification from "./pages/Notification/Notification";
 import Status from "./pages/Status/Status";
 
-import Cawangan from "./pages/Cawangan/Cawangan";
 import RedirectToLogin from "./components/RedirectToLogin";
 import { removeUserSession } from "./Utils/Common";
+import Map from "./pages/Cawangan/Map";
 
 const App: React.FC = (props) => {
   return (
@@ -57,7 +57,7 @@ const App: React.FC = (props) => {
           <PublicRoute path="/home" component={Home} exact={true} />
           <PublicRoute path="/register" component={Register} exact={true} />
           <Route path="/status" component={Status} exact={true} />
-          <Route path="/cawangan" component={Cawangan} exact={true} />
+          <Route path="/map" component={Map} exact={true} />
           <Redirect exact from="/" to="/home" />
           <Route
             path="/logout"
